@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const { verifyEmailTemplate, forgotPasswordTemplate } = require('../email-views/index')
+const { verifyEmailTemplate, forgotPasswordTemplate, fA2AuthTemplate } = require('../email-views/index')
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
@@ -32,9 +32,17 @@ const sendEmail = async (to, subject, payload) => {
   if(subject == 'Verify Email ProtradeLiveOptions'){
    template = verifyEmailTemplate({firstName, confirmEmailUrl})
   }
+
   else if (subject == 'Reset Password'){
-    template = forgotPasswordTemplate({firstName, confirmEmailUrl})
+    const {firstName, forgotPasswordLink} = payload 
+    template = forgotPasswordTemplate({firstName, forgotPasswordLink})
   }
+
+  else if(subject = "Enter code sent to email") {
+    const {firstName, token} = payload 
+    template = fA2AuthTemplate({firstName, token})
+  }
+
 
   const info = {
     from:process.env.EMAIL_USER,

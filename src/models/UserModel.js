@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose')
-const {createSignInTokenRegister, createSignInTokenLogin} = require('../ultis/jsonwebtoken')
+const {customCreateToken} = require('../ultis/jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const crypto = require('crypto')
 
 const UserSchema = new Schema ({
     firstName: {
@@ -36,7 +37,7 @@ const UserSchema = new Schema ({
         type:Boolean,
         default:false
     },
-    FACode:Number,
+    FACode:String,
     FACodeExp:Date 
 
     }, {timestamps:true})
@@ -51,18 +52,18 @@ UserSchema.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, salt)
 })
 
-UserSchema.methods.createToken = function(){
-    const token = createSignInTokenRegister(this._id)
+UserSchema.methods.createToken = function(time){
+    const token = customCreateToken(this._id, time)
     return token
 }
 
-UserSchema.methods.createTokenLogin = function(){
-    const token = createSignInTokenLogin(this._id)
-    return token
-}
 
 UserSchema.methods.send2FACode = function(){
-    
+    const token = crypto.randomBytes(3).toString('hex')
+    this.FACode = token
+
+    this.FACodeExp = Date.now() + 10 * 60 * 1000
+    return token
 }
 
 module.exports = model('User', UserSchema)

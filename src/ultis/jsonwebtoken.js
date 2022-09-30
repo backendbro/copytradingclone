@@ -1,13 +1,8 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
-function createSignInTokenRegister(payload){
-    const token = jwt.sign({payload}, process.env.secretKey, { expiresIn: process.env.registerExpTime });
-    return token;
-}
-
-function createSignInTokenLogin(payload){
-    const token = jwt.sign({payload}, process.env.secretKey, { expiresIn: process.env.loginExpTime });
+function customCreateToken(payload, time){
+    const token = jwt.sign({payload}, process.env.secretKey, { expiresIn: time });
     return token;
 }
 
@@ -27,4 +22,4 @@ const comparePassword = async (password, hashedPassword) => {
     return isValid;
   };
 
-module.exports = {createSignInTokenRegister, decryptJwt, createSignInTokenLogin, comparePassword}
+module.exports = {customCreateToken, decryptJwt, comparePassword}
