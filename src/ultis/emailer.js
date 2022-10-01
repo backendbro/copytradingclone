@@ -27,20 +27,18 @@ const { verifyEmailTemplate, forgotPasswordTemplate, fA2AuthTemplate } = require
 
 
 const sendEmail = async (to, subject, payload) => {
-  const {firstName, confirmEmailUrl} = payload 
   let template;
+  const {firstName, pin} = payload 
   if(subject == 'Verify Email ProtradeLiveOptions'){
-   template = verifyEmailTemplate({firstName, confirmEmailUrl})
+   template = verifyEmailTemplate({firstName, pin})
   }
 
   else if (subject == 'Reset Password'){
-    const {firstName, forgotPasswordLink} = payload 
-    template = forgotPasswordTemplate({firstName, forgotPasswordLink})
+    template = forgotPasswordTemplate({firstName, pin})
   }
 
   else if(subject = "Enter code sent to email") {
-    const {firstName, token} = payload 
-    template = fA2AuthTemplate({firstName, token})
+    template = fA2AuthTemplate({firstName, pin})
   }
 
 

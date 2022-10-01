@@ -1,11 +1,12 @@
+const mongoose = require('mongoose')
 const UserModel = require("../models/UserModel")
-const ErrorResponse = require('../errors/ErrorResponse')
 const sendEmail = require('../ultis/emailer.js')
 const {decryptJwt, comparePassword} = require('../ultis/jsonwebtoken')
+const sdk = require('api')('@6thbridge/v1.0#5hw3619l2892ft6');
 
 class UserService {
     async register (req,res) {
-        const { firstName, lastName, email, password, currency} = req.body
+        const { email } = req.body
 
         const userExists = await UserModel.findOne({email})
         
@@ -13,32 +14,50 @@ class UserService {
             return res.status(404).json({message:'USER ALREADY EXIST'})
        }
 
-        const newUser = { firstName, lastName, email, password, currency }
-        const user = await UserModel.create(newUser)
+        const user = await UserModel.create(req.body)
         const token = user.createToken(process.env.registerExpTime)
 
-        // const confirmEmailURL = `${req.protocol}://${req.get(
-        //     'host',
-        // )}/api/user/confirmemail?token=${token}`;
-         const confirmEmailURL = `${process.env.BASE_URL}/confirm-email/${token}`
-        await sendEmail(email, 'Verify Email ProtradeLiveOptions', { firstName, confirmEmailURL });
-       
+        const firstName = user.firstName
+        const pin = user.send2FACode()
+        await user.save()
+        await sendEmail(email, 'Verify Email ProtradeLiveOptions', { firstName, pin });
 
-        res.status(200).json({user, token, confirmEmailURL})
+
+        res.status(200).json({user, token})
     }
 
-    async confirmEmailURL(req,res) {
-        const token = req.params.token 
-        const userId = decryptJwt(token)
-        
-        const user = await UserModel.findById(userId)
+
+    async resendConfirmEmailLink (req,res) {
+        const {email} = req.body
+        const user = await UserModel.findOne({email})
         if(!user){
-            return res.status(400).json({message:"Expired Token"})
+            return res.status(404).json({message:'ENTER YOUR SIGN IN EMAIL'})
         }
 
-        user.isValidAcct = true
+        const firstName = user.firstName
+        const pin = user.send2FACode()
         await user.save()
+        await sendEmail(email, 'Verify Email ProtradeLiveOptions', { firstName, pin });
 
+        res.status(200).json({message: "EMAIL VERIFICATION MAIL SENT"})
+    }
+
+    async confirmPin(req,res) {
+        const pin = req.body.pin 
+        
+        const user = await UserModel.findOne({
+            FACode:pin,
+            FACodeExp:{ $gt: Date.now() }
+        })
+        
+        if(!user){
+            return res.status(200).json({message:"TOKEN EXPIRED"})
+        }
+
+        user.FACode = undefined
+        user.FACodeExp = undefined
+        user.isVerifiedAcct = true  
+        await user.save()
         res.status(200).json({message:'EMAIL VERIFIED'})
     }
 
@@ -49,9 +68,6 @@ class UserService {
             return res.status(404).json({message:'USER ALREADY EXIST'})
         }
         
-        if(!user.isValidAcct){
-            return res.status(404).json({message:'CONFIRM YOUR ACCT'})
-        }
 
         // console.log(user)
         const isMatch = await comparePassword(password,user.password)   
@@ -59,12 +75,12 @@ class UserService {
             return res.status(400).json({message:"YOU HAVE ENTERED WRONG CREDENTIALS"})
         } 
 
-        const token = user.send2FACode()
+        const pin = user.send2FACode()
         await user.save()
         const firstName = user.firstName
-        await sendEmail(email, 'Enter code sent to email', { firstName, token });
+        await sendEmail(email, 'Enter code sent to email', { firstName, pin });
         
-        res.status(200).json({message: 'TOKEN SENT'})
+        res.status(200).json({message: 'ENTER PIN'})
     }
 
     async completeLogin(req,res){
@@ -95,23 +111,30 @@ class UserService {
             return res.status(404).json({message: 'WRONG CREDENTIAL'})
         }
         
-        const token = user.createToken('10m')
-
-        const forgotPasswordLink = `${process.env.BASE_URL}/reset-password/${token}`
         const firstName = user.firstName
+        const pin = user.send2FACode()
+        await user.save()
 
-        await sendEmail(email, 'Reset Password', { firstName, forgotPasswordLink });
+        await sendEmail(email, 'Reset Password', { firstName, pin });
 
-        res.status(200).json({message:'RESET PASSWORD LINK SENT TO THIS EMAIL', forgotPasswordLink})
+        res.status(200).json({message:'RESET PASSWORD LINK SENT TO THIS EMAIL', pin})
    
     }
 
     async resetPassword (req,res) {
-        const {token} = req.params
-        const { password } = req.body
-        const userId = decryptJwt(token)
-       
-        const user = await UserModel.findById(userId).select('+password')
+        const { password,pin } = req.body
+        
+        const user = await UserModel.findOne({
+            FACode:pin,
+            FACodeExp:{ $gt: Date.now() }
+        }).select('+password')
+        
+        if(!user){
+            return res.status(200).json({message:"TOKEN EXPIRED"})
+        }
+
+        user.FACode = undefined
+        user.FACodeExp = undefined
         user.password = password
         await user.save()
 
@@ -119,7 +142,29 @@ class UserService {
     }
 
     async resetCurrentPassword(req,res){
-        const {curerntPassword, newPassword} = req.body 
+        const {currentPassword, newPassword} = req.body 
+        const {userId} = req.params
+        const isValid = mongoose.Types.ObjectId.isValid(userId);
+       
+        if(!isValid){
+            return res.status(404).json({message: 'INVALID OBJECT ID'})
+        }
+        
+        const user = await UserModel.findById(userId).select('+password')
+        
+        if(!user){
+            return res.status(404).json({message: 'USER DOES NOT EXIST'})
+        }
+       
+        const isMatch = await comparePassword(currentPassword,user.password)
+        if(!isMatch){
+            return res.status(404).json({message: 'INCORRECT PASSWORD'})
+        }
+
+        user.password = newPassword
+        await user.save()
+
+        res.status(200).json({message:"PASSWORD CHANGED", user})
     }
     
 }

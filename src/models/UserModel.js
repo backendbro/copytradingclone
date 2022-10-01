@@ -28,12 +28,41 @@ const UserSchema = new Schema ({
         required:true,
         select:false
     },
+    role:{
+        type:String,
+        enum:['admin', 'user'],
+        default:'user'
+    },
     currency:{
         type:String,
         enum:['USD', 'GBP', 'EUR','AUR'],
         required:true
     },
-    isValidAcct: {
+    country:{
+        type:String,
+        required:true
+    },
+    state:{
+        type:String,
+        required:true
+    },
+    city:{
+        type:String,
+        required:true
+    },
+    postCode:{
+        type:Number,
+        required:true
+    },
+    streetAddress:{
+        type:String,
+        required:true
+    },
+    mobileNumber:{
+        type:Number,
+        required:true
+    },
+    isVerifiedAcct:{
         type:Boolean,
         default:false
     },

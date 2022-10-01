@@ -4,7 +4,6 @@ const dotenv = require('dotenv')
 const app = express()
 
 const connectDB = require('./src/database/database')
-const errorHandler = require('./src/middlewares/error-handler')
 const notFound = require('./src/middlewares/notFound')
 
 app.use(express.json())
@@ -16,7 +15,7 @@ connectDB()
 const auth = require('./src/routes/auth')
 app.use('/api/user', auth)
 
-app.use(errorHandler)
+
 app.use(notFound)
 
 const port = process.env.PORT || 5000
