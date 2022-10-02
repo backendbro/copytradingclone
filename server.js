@@ -13,8 +13,12 @@ dotenv.config()
 connectDB()
 
 const auth = require('./src/routes/auth')
-app.use('/api/user', auth)
+const verifyId = require('./src/routes/verifyId')
+const withDraw = require('./src/routes/WithdrawalService')
 
+app.use('/api/user', auth)
+app.use('/api/verify-id', verifyId)
+app.use('/api/withdraw', withDraw)
 
 app.use(notFound)
 

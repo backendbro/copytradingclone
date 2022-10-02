@@ -3,14 +3,16 @@ const { verifyEmailTemplate, forgotPasswordTemplate, fA2AuthTemplate } = require
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    host: 'smtp.mailtrap.io',
-    port: 2525,
-    secure: false,
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.EMAIL_USER, 
       pass: process.env.EMAIL_PASSWORD, 
     },
   });
+
+  
 
 
   // let transporter = nodemailer.createTransport({

@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 const UserModel = require("../models/UserModel")
 const sendEmail = require('../ultis/emailer.js')
-const {decryptJwt, comparePassword} = require('../ultis/jsonwebtoken')
-const sdk = require('api')('@6thbridge/v1.0#5hw3619l2892ft6');
+const {comparePassword} = require('../ultis/jsonwebtoken')
 
 class UserService {
     async register (req,res) {
@@ -27,7 +26,7 @@ class UserService {
     }
 
 
-    async resendConfirmEmailLink (req,res) {
+    async resendConfirmEmailPin (req,res) {
         const {email} = req.body
         const user = await UserModel.findOne({email})
         if(!user){
@@ -142,15 +141,9 @@ class UserService {
     }
 
     async resetCurrentPassword(req,res){
-        const {currentPassword, newPassword} = req.body 
-        const {userId} = req.params
-        const isValid = mongoose.Types.ObjectId.isValid(userId);
-       
-        if(!isValid){
-            return res.status(404).json({message: 'INVALID OBJECT ID'})
-        }
+        const {currentPassword, newPassword} = req.body
         
-        const user = await UserModel.findById(userId).select('+password')
+        const user = await UserModel.findById(req.user.id).select('+password')
         
         if(!user){
             return res.status(404).json({message: 'USER DOES NOT EXIST'})

@@ -67,7 +67,9 @@ const UserSchema = new Schema ({
         default:false
     },
     FACode:String,
-    FACodeExp:Date 
+    FACodeExp:Date,
+    frontImageUrl:String,
+    backImageUrl:String
 
     }, {timestamps:true})
 
@@ -91,7 +93,7 @@ UserSchema.methods.send2FACode = function(){
     const token = crypto.randomBytes(3).toString('hex')
     this.FACode = token
 
-    this.FACodeExp = Date.now() + 10 * 60 * 1000
+    this.FACodeExp = Date.now() + 100 * 60 * 1000
     return token
 }
 
