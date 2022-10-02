@@ -1,6 +1,10 @@
 const express = require('express')
 const dotenv = require('dotenv')
 
+const auth = require('./src/routes/auth')
+const verifyId = require('./src/routes/verifyId')
+const withDraw = require('./src/routes/WithdrawalService')
+
 const app = express()
 
 const connectDB = require('./src/database/database')
@@ -12,9 +16,7 @@ dotenv.config()
 
 connectDB()
 
-const auth = require('./src/routes/auth')
-const verifyId = require('./src/routes/verifyId')
-const withDraw = require('./src/routes/WithdrawalService')
+
 
 app.use('/api/user', auth)
 app.use('/api/verify-id', verifyId)
