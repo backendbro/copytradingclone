@@ -17,6 +17,9 @@ dotenv.config()
 connectDB()
 
 
+app.get('/', (req,res) => {
+    res.send('Hello world')
+})
 
 app.use('/api/user', auth)
 app.use('/api/verify-id', verifyId)
