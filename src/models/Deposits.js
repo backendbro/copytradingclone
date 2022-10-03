@@ -15,6 +15,7 @@ const DepositSchema  = new Schema ({
         enum:['Trading', 'Bitcoin Minning', 'Ethereum Minning', 'Dogecoin Minning', 'Binance Coin Minning'],
         required:true
     },
+    depositImage:String,
     confirmed:{
         type:Boolean,
         default:false

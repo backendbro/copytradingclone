@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const { protect } = require('../middlewares/protect-route')
+const { protect, auth } = require('../middlewares/protect-route')
 const WithDrawalService = require('../service/WithdrawalService')
 
-router.get('/', protect, WithDrawalService.getWithDrawals)
-router.post('/bank', protect, WithDrawalService.bank)
-router.post('/cash-app', protect, WithDrawalService.cashApp)
-router.post('/crypto', protect, WithDrawalService.crypto)
-router.post('/paypal', protect, WithDrawalService.paypal)
+router.get('/', protect,  auth('user', "admin"), WithDrawalService.getWithDrawals)
+router.post('/bank', protect, auth('user', "admin"), WithDrawalService.bank)
+router.post('/cash-app', protect, auth('user', "admin"), WithDrawalService.cashApp)
+router.post('/crypto', protect, auth('user', "admin") , WithDrawalService.crypto)
+router.post('/paypal', protect, auth('user', "admin"), WithDrawalService.paypal)
 
 module.exports = router
