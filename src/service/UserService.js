@@ -6,6 +6,9 @@ const {comparePassword} = require('../ultis/jsonwebtoken')
 class UserService {
     async register (req,res) {
         const { email } = req.body
+        if(req.params.userId){
+            return res.status(200).json({message:"Hello world"})
+        }
 
         const userExists = await UserModel.findOne({email})
         
@@ -16,6 +19,33 @@ class UserService {
         const user = await UserModel.create(req.body)
         const token = user.createToken(process.env.registerExpTime)
 
+        const firstName = user.firstName
+        const pin = user.send2FACode()
+        await user.save()
+        await sendEmail(email, 'Verify Email ProtradeLiveOptions', { firstName, pin });
+
+
+        res.status(200).json({user, token})
+    }
+
+    async registerWithReferral(req,res){
+       
+        const { email } = req.body
+
+        const userExists = await UserModel.findOne({email})
+        
+       if(userExists){
+            return res.status(404).json({message:'USER ALREADY EXIST'})
+       }
+
+        const user = await UserModel.create(req.body)
+       
+        //save referral
+        const userId = req.params.userId
+        const id = mongoose.Types.ObjectId(userId)
+        await UserModel.findByIdAndUpdate(id, { '$addToSet': { referredUser: user._id } }, {new:true} )
+        
+        const token = user.createToken(process.env.registerExpTime)
         const firstName = user.firstName
         const pin = user.send2FACode()
         await user.save()
@@ -64,7 +94,7 @@ class UserService {
         const {email, password} = req.body 
         const user = await UserModel.findOne({email}).select("+password")
         if(!user){
-            return res.status(404).json({message:'USER ALREADY EXIST'})
+            return res.status(404).json({message:'USER DOES NOT EXIST'})
         }
         
 

@@ -1,12 +1,9 @@
 const router = require('express').Router()
 const UserService = require('../service/UserService')
-const upload = require('../config/multer')
 const {protect} = require('../middlewares/protect-route')
 
-const VerifyIdentityService = require('../service/VerifyIdentityService')
+router.post('/register/referral/:userId', UserService.registerWithReferral)
 
-
-module.exports = router
 router.post('/register', UserService.register)
 router.put('/confirm-email/', UserService.confirmPin)
 router.post('/login', UserService.login)

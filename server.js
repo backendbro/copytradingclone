@@ -1,10 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv')
 
-const auth = require('./src/routes/auth')
-const verifyId = require('./src/routes/verifyId')
-const withDraw = require('./src/routes/WithdrawalService')
-
 const app = express()
 
 const connectDB = require('./src/database/database')
@@ -21,9 +17,18 @@ app.get('/', (req,res) => {
     res.send('Hello world')
 })
 
+
+const auth = require('./src/routes/auth')
+const verifyId = require('./src/routes/verifyId')
+const withDraw = require('./src/routes/WithdrawalService')
+const Referral = require('./src/routes/Referral')
+const Services = require('./src/routes/AccountService')
+
 app.use('/api/user', auth)
 app.use('/api/verify-id', verifyId)
 app.use('/api/withdraw', withDraw)
+app.use('/api/referral', Referral)
+app.use('/api/account-service', Services)
 
 app.use(notFound)
 

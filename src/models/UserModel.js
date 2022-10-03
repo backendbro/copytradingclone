@@ -28,6 +28,7 @@ const UserSchema = new Schema ({
         required:true,
         select:false
     },
+    profilePicture:String,
     role:{
         type:String,
         enum:['admin', 'user'],
@@ -69,7 +70,8 @@ const UserSchema = new Schema ({
     FACode:String,
     FACodeExp:Date,
     frontImageUrl:String,
-    backImageUrl:String
+    backImageUrl:String,
+    referredUser:[{ type: Schema.Types.ObjectId, ref:"User" }],
 
     }, {timestamps:true})
 
