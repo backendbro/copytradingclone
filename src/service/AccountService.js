@@ -67,6 +67,51 @@ class AccountService {
        
     }
 
+    async myProfile(req,res) {
+        const userId = req.user.id 
+        const user = await UserModel.findById(userId)
+        if(!user){
+            return res.status(404).json({user})
+        }
+        res.status(200).json({user})
+    }
+
+    async updateAddress(req,res) {
+    
+        const userId = req.user.id
+        let user = await UserModel.findById(userId)
+        if(!user){
+            return res.status(404).json({user})
+        }
+
+        if(!req.files){
+            return res.status(404).json({message: "UPLOAD A FILE"})
+        }
+
+        const updateAddress = {
+            city:req.body.city,
+            state:req.body.state,
+            streetAddress:req.body.streetAddress,
+            country:req.body.country,
+            postCode:req.body.postCode
+        }
+        const { addressBill } = req.files
+        
+       
+
+        try {
+            const addressBillPath = addressBill[0].path 
+            const addressBillUpload = await uploadSingleFile(addressBillPath)
+            const addressBillUrl = addressBillUpload.url
+           
+            const user = await UserModel.findByIdAndUpdate(userId,  { updateAddress, addressBillPic:addressBillUrl }, {new:true} )
+            res.status(200).json({message:"IMAGE UPLOADED", user})
+       } catch (error) {
+        console.log(error)
+       }
+
+    }
+
 
 }
 

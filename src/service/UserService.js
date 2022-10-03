@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const UserModel = require("../models/UserModel")
+const Verified = require('../models/Verified')
 const sendEmail = require('../ultis/emailer.js')
 const {comparePassword} = require('../ultis/jsonwebtoken')
 
@@ -83,10 +84,15 @@ class UserService {
             return res.status(200).json({message:"TOKEN EXPIRED"})
         }
 
+        
+        const email = await Verified.create('completed')
+
         user.FACode = undefined
         user.FACodeExp = undefined
         user.isVerifiedAcct = true  
         await user.save()
+        
+        
         res.status(200).json({message:'EMAIL VERIFIED'})
     }
 

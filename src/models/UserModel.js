@@ -71,7 +71,8 @@ const UserSchema = new Schema ({
     FACodeExp:Date,
     frontImageUrl:String,
     backImageUrl:String,
-    referredUser:[{ type: Schema.Types.ObjectId, ref:"User" }],
+    addressBillPic:String,
+    referredUser:[{ type: Schema.Types.ObjectId, ref:"User" }]
 
     }, {timestamps:true})
 
