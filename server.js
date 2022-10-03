@@ -24,6 +24,7 @@ const withDraw = require('./src/routes/WithdrawalService')
 const Referral = require('./src/routes/Referral')
 const Services = require('./src/routes/AccountService')
 const Deposits = require('./src/routes/Deposits')
+const Contract = require('./src/routes/Contract')
 
 app.use('/api/user', auth)
 app.use('/api/verify-id', verifyId)
@@ -31,6 +32,7 @@ app.use('/api/withdraw', withDraw)
 app.use('/api/referral', Referral)
 app.use('/api/account-service', Services)
 app.use('/api/deposits', Deposits)
+app.use('/api/contract', Contract)
 
 app.use(notFound)
 
