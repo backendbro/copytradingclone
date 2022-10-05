@@ -3,8 +3,8 @@ const dotenv = require('dotenv')
 
 const app = express()
 
-const connectDB = require('./src/database/database')
-const notFound = require('./src/middlewares/notFound')
+const connectDB = require('./database/database')
+const notFound = require('./middlewares/notFound')
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
@@ -18,13 +18,13 @@ app.get('/', (req,res) => {
 })
 
 
-const auth = require('./src/routes/auth')
-const verifyId = require('./src/routes/verifyId')
-const withDraw = require('./src/routes/WithdrawalService')
-const Referral = require('./src/routes/Referral')
-const Services = require('./src/routes/AccountService')
-const Deposits = require('./src/routes/Deposits')
-const Contract = require('./src/routes/Contract')
+const auth = require('./routes/auth')
+const verifyId = require('./routes/verifyId')
+const withDraw = require('./routes/WithdrawalService')
+const Referral = require('./routes/Referral')
+const Services = require('./routes/AccountService')
+const Deposits = require('./routes/Deposits')
+const Contract = require('./routes/Contract')
 
 app.use('/api/user', auth)
 app.use('/api/verify-id', verifyId)
