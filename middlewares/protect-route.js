@@ -21,13 +21,14 @@ const protect = async (req,res,next) => {
     }
 }
 
-const auth = (...role) => {
-    return (req,res,next) => {
-        if(!role.includes(req.user.role)){
-            return res.status(404).json({message:"YOU ARE NOT AUTHORIZED TO ACCESS THIS RESOURCE"})
+const auth = (...roles) => {
+        return (req,res,next) => {
+            if(!roles.includes(req.user.role)){
+                return next( res.status(404).json({message:"YOU ARE NOT AUTHORIZED TO COMPLETE THIS ACTION"})) 
+            }
+            next()
         }
-        next()
     }
-}
+
 
 module.exports = {protect, auth}

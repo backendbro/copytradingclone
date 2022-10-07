@@ -2,10 +2,6 @@ const express = require('express')
 const dotenv = require('dotenv')
 
 const app = express()
-const port = process.env.PORT || 5000
-app.listen(port, () => {
-    console.log(`port started on: http://localhost:${port}`)
-})
 
 const connectDB = require('./database/database')
 const notFound = require('./middlewares/notFound')
@@ -29,6 +25,7 @@ const Referral = require('./routes/referral')
 const Services = require('./routes/AccountService')
 const Deposits = require('./routes/Deposits')
 const Contract = require('./routes/Contract')
+const Wallet = require('./routes/Wallet')
 
 app.use('/api/user', auth)
 app.use('/api/verify-id', verifyId)
@@ -37,6 +34,11 @@ app.use('/api/referral', Referral)
 app.use('/api/account-service', Services)
 app.use('/api/deposits', Deposits)
 app.use('/api/contract', Contract)
+app.use('/api/wallet', Wallet)
 
 app.use(notFound)
 
+const port = process.env.PORT || 8000
+app.listen(port, () => {
+    console.log(`port started on: http://localhost:${port}`)
+})
