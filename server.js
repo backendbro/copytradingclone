@@ -1,6 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv')
-
+const cors = require('cors')
 const app = express()
 
 const connectDB = require('./database/database')
@@ -8,6 +8,8 @@ const notFound = require('./middlewares/notFound')
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
+app.use(cors());
+
 dotenv.config()
 
 connectDB()
