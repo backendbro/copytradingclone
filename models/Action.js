@@ -6,6 +6,6 @@ const ActionSchema = new Schema ({
     amount:Number,
     action:{type:String, enum:['withDrew', 'invested']},
     currency:{type:String, enum:['USD', 'GBP', 'EUR']}
-})
+},{timestamps:true})
 
 module.exports = model("Action", ActionSchema)

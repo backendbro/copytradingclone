@@ -16,10 +16,11 @@ const TradeSchema  = new Schema ({
         required:true
     },
     depositImage:String,
+    user:{ type: Schema.Types.ObjectId, ref:"User" },
     confirmed:{
         type:Boolean,
         default:false
     }
-})
+},{timestamps:true})
 
 module.exports = model('Trade', TradeSchema)

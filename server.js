@@ -7,7 +7,7 @@ const connectDB = require('./database/database')
 const notFound = require('./middlewares/notFound')
 
 app.use(cors())
-  
+app.set('trust proxy', true)
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
@@ -30,6 +30,9 @@ const Services = require('./routes/AccountService')
 const Deposits = require('./routes/Deposits')
 const Contract = require('./routes/Contract')
 const Wallet = require('./routes/Wallet')
+const Trade = require('./routes/Trade')
+const Trader = require('./routes/Trader')
+const AdminUsers = require('./routes/AdminUsers')
 
 app.use('/api/user', auth)
 app.use('/api/verify-id', verifyId)
@@ -39,6 +42,9 @@ app.use('/api/account-service', Services)
 app.use('/api/deposits', Deposits)
 app.use('/api/contract', Contract)
 app.use('/api/wallet', Wallet)
+app.use('/api/trade', Trade)
+app.use('/api/trader', Trader)
+app.use('/api/admin-user', AdminUsers)
 
 app.use(notFound)
 

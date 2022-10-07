@@ -1,0 +1,3 @@
+Remember to implement the do not repeat yourself by doing app.use(protect, auth)
+Remeber to implement pending deposits, on pending deposits, and to make sure to confirm it from the admin panel 
+Remember to optimmize the code

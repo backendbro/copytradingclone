@@ -22,7 +22,7 @@ class Deposits {
         if(!user){
             return res.status(404).json({user})
         }
-
+        req.body.user = userId
         const deposit = await Deposit.create(req.body)
         res.status(200).json({message:"DEPOSIT MADE", deposit})
     }

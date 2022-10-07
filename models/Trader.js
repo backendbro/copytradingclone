@@ -26,12 +26,13 @@ losses:Number,
 tradesCount:Number,
 winPercent:String, 
 pendingRequests: [{ type: Schema.Types.ObjectId, ref:"User" }],
+copiers:[{type: Schema.Types.ObjectId, ref:"User"}],
 description:String,
 price:Number,
 type:{
     type:String,
     enum:['Human','Bot']
 }
-})
+},{timestamps:true})
 
 module.exports = model('Trader', TraderSchema)

@@ -15,6 +15,6 @@ const WalletSchema = new Schema ({
     },
     tag:String,
     Network:String
-})
+}, {timestamps:true})
 
 module.exports = model('Wallet', WalletSchema)

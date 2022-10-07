@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const { verifyEmailTemplate, forgotPasswordTemplate, fA2AuthTemplate } = require('../email-views/index')
+const { verifyEmailTemplate, forgotPasswordTemplate, fA2AuthTemplate, adminMessageTemplate } = require('../email-views/index')
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
@@ -39,8 +39,12 @@ const sendEmail = async (to, subject, payload) => {
     template = forgotPasswordTemplate({firstName, pin})
   }
 
-  else if(subject = "Enter code sent to email") {
+  else if(subject == "Enter code sent to email") {
     template = fA2AuthTemplate({firstName, pin})
+  }
+  else{
+    const {firstName, description} = payload
+    template = adminMessageTemplate({firstName, description})
   }
 
 

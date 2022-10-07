@@ -6,38 +6,46 @@ const WithdrawalModelPaypal = require("../models/WithdrawalModelPaypal")
 
 class WithDrawalService {
     async bank(req,res){
-        const user = await UserModel.findById(req.user.id)
+        const userId = req.user.id
+        const user = await UserModel.findById(userId)
         if(!user){
             return res.status(404).json({nessage: "USER DOES"})
         }
+        req.body.user = userId
         const withDrawalDetails = await WithdrawalModelBank.create(req.body)
         res.status(200).json({withDrawalDetails})
     }   
 
     async crypto(req,res) {
-        const user = await UserModel.findById(req.user.id)
+        const userId = req.user.id
+        const user = await UserModel.findById(userId)
         if(!user){
             return res.status(404).json({nessage: "USER DOES"})
         }
+        req.body.user = userId
         const withDrawalDetails = await WithdrawalModelCrypto.create(req.body)
         res.status(200).json({withDrawalDetails})
     }
 
     async cashApp(req,res) {
-        const user = await UserModel.findById(req.user.id)
+        const userId = req.user.id
+        const user = await UserModel.findById(userId)
         if(!user){
             return res.status(404).json({nessage: "USER DOES"})
         }
+        req.body.user = userId
         const withDrawalDetails = await WithdrawalModelCashApp.create(req.body)
         res.status(200).json({withDrawalDetails})
     }
 
 
     async paypal(req,res){
-        const user = await UserModel.findById(req.user.id)
+        const userId = req.user.id
+        const user = await UserModel.findById(userId)
         if(!user){
             return res.status(404).json({nessage: "USER DOES"})
         }
+        req.body.user = userId
         const withDrawalDetails = await WithdrawalModelPaypal.create(req.body)
         res.status(200).json({withDrawalDetails})
     }
@@ -47,7 +55,7 @@ class WithDrawalService {
         if(!user){
             return res.status(404).json({nessage: "USER DOES"})
         }
-
+        
         const paypalWithDraw = await WithdrawalModelPaypal.find({approved:"true"})
         const cashAppWithDraw = await WithdrawalModelCashApp.find({approved:"true"})
         const bankWithDraw = await WithdrawalModelBank.find({approved:"true"})

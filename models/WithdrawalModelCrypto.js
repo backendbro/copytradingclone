@@ -14,7 +14,7 @@ const WithDrawalSchemaCrypto = new Schema ({
         required:true
     },
     cryptoCurrency:{
-        type:Number,
+        type:String,
         required:true
     },
     amount:{
@@ -24,7 +24,7 @@ const WithDrawalSchemaCrypto = new Schema ({
     approved:{
         type:Boolean,
         default:true
-    }
+    },user:{ type: Schema.Types.ObjectId, ref:"User" }
 }, {timestamps:true})
 
 module.exports = model('WithDrawCrypto', WithDrawalSchemaCrypto)

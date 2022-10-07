@@ -19,7 +19,8 @@ const DepositSchema  = new Schema ({
     confirmed:{
         type:Boolean,
         default:false
-    }
-})
+    },
+    user:{ type: Schema.Types.ObjectId, ref:"User" }
+}, {timestamps:true})
 
 module.exports = model('Deposit', DepositSchema)

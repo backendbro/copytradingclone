@@ -72,8 +72,8 @@ const UserSchema = new Schema ({
     frontImageUrl:String,
     backImageUrl:String,
     addressBillPic:String,
-    referredUser:[{ type: Schema.Types.ObjectId, ref:"User" }]
-
+    referredUser:[{ type: Schema.Types.ObjectId, ref:"User" }],
+    accountStatus:{type:String, default:'Active'}
     }, {timestamps:true})
 
 
