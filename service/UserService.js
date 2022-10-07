@@ -119,14 +119,14 @@ class UserService {
     }
 
     async completeLogin(req,res){
-        const {token} = req.body
+        const {pin} = req.body
         const user = await UserModel.findOne({
-            FACode:token,
+            FACode:pin,
             FACodeExp:{ $gt: Date.now() }
         })
         
         if(!user){
-            return res.status(200).json({message:"TOKEN EXPIRED"})
+            return res.status(200).json({message:"INVALID TOKEN"})
         }
 
         user.FACode = undefined
