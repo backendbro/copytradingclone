@@ -7,9 +7,6 @@ const {comparePassword} = require('../ultis/jsonwebtoken')
 class UserService {
     async register (req,res) {
         const { email } = req.body
-        if(req.params.userId){
-            return res.status(200).json({message:"Hello world"})
-        }
 
         const userExists = await UserModel.findOne({email})
         
