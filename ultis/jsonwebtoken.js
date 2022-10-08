@@ -8,7 +8,6 @@ function customCreateToken(payload, time){
 
 
 function decryptJwt(token){
-   
    try {
     const userId = jwt.verify(token, process.env.secretKey)
     return userId.payload

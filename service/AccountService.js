@@ -41,19 +41,19 @@ class AccountService {
         user.FACode = undefined
         user.FACodeExp = undefined
         user.email = email 
-
        await user.save()
+
        res.status(200).json({message:'EMAIL UPDATED', user})
     }
 
     async UpdatePhoto(req,res){
-        if(!req.files){
+        if(!req.file){
             return res.status(404).json({message: "UPLOAD AN IMAGE"})
         }
         const userId = req.user.id
-        const { profilePicture } = req.files
+        const profilePicture = req.file
         try {
-            const profilePicturePath = profilePicture[0].path 
+            const profilePicturePath = profilePicture.path 
             const profilePictureUpload = await uploadSingleFile(profilePicturePath)
             const profilePictureUploadUrl = profilePictureUpload.url
 
@@ -84,7 +84,7 @@ class AccountService {
             return res.status(404).json({user})
         }
 
-        if(!req.files){
+        if(!req.file){
             return res.status(404).json({message: "UPLOAD A FILE"})
         }
 
@@ -95,12 +95,12 @@ class AccountService {
             country:req.body.country,
             postCode:req.body.postCode
         }
-        const { addressBill } = req.files
+        const addressBill = req.file
         
        
 
         try {
-            const addressBillPath = addressBill[0].path 
+            const addressBillPath = addressBill.path 
             const addressBillUpload = await uploadSingleFile(addressBillPath)
             const addressBillUrl = addressBillUpload.url
            

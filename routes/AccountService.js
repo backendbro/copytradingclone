@@ -3,9 +3,11 @@ const AccountService = require('../service/AccountService')
 const {protect, auth} = require('../middlewares/protect-route')
 const upload = require('../config/multer')
 
-router.post('/token', protect, auth('user', "admin"), AccountService.requestToken)
-router.post('/update-email', protect, auth('user', "admin"), AccountService.UpdateEmail)
-router.post('/update-photo', protect, auth('user', "admin") ,upload.fields([{ name: 'profilePicture', maxCount: 1 }]), AccountService.UpdatePhoto)
-router.get('/profile', protect, auth('user', "admin"), AccountService.myProfile)
-router.put('/update-address', protect, auth('user', "admin"), upload.fields([{ name: 'addressBill', maxCount: 1 }]), AccountService.updateAddress)
+router.use(protect, auth('user', 'admin'))
+
+router.post('/token', AccountService.requestToken)
+router.post('/update-email', AccountService.UpdateEmail)
+router.post('/update-photo' , upload.single('profilePicture'), AccountService.UpdatePhoto)
+router.get('/profile', AccountService.myProfile)
+router.put('/update-address', upload.single('addressBill'), AccountService.updateAddress)
 module.exports = router
