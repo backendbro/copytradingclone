@@ -41,6 +41,8 @@ const sendEmail = async (to, subject, payload) => {
 
   else if(subject == "Enter code sent to email") {
     template = fA2AuthTemplate({firstName, pin})
+  }else if(subject == "Update Email ProtradeLiveOptions"){
+    template = fA2AuthTemplate({firstName, pin})
   }
   else{
     const {firstName, description} = payload
