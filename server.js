@@ -6,8 +6,7 @@ const app = express()
 const connectDB = require('./database/database')
 const notFound = require('./middlewares/notFound')
 
-app.use(cors())
-app.set('trust proxy', true)
+app.use(cors({ origin:'http://localhost:3000'}))
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
