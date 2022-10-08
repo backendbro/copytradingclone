@@ -95,20 +95,20 @@ class AccountService {
             country:req.body.country,
             postCode:req.body.postCode
         }
+        
+        if(req.file){
         const addressBill = req.file
         
-       
-
         try {
             const addressBillPath = addressBill.path 
             const addressBillUpload = await uploadSingleFile(addressBillPath)
             const addressBillUrl = addressBillUpload.url
-           
-            const user = await UserModel.findByIdAndUpdate(userId,  { updateAddress, addressBillPic:addressBillUrl }, {new:true} )
-            res.status(200).json({message:"IMAGE UPLOADED", user})
        } catch (error) {
         console.log(error)
-       }
+       }    
+    }
+       user = await UserModel.findByIdAndUpdate(userId,  { updateAddress, addressBillPic:addressBillUrl }, {new:true} )
+       res.status(200).json({message:"IMAGE UPLOADED", user})
 
     }
 

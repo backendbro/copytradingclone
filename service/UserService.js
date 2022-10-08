@@ -71,7 +71,7 @@ class UserService {
     }
 
     async confirmPin(req,res) {
-        const pin = req.body.pin 
+        const {pin} = req.body
         
         const user = await UserModel.findOne({
             FACode:pin,
@@ -79,11 +79,8 @@ class UserService {
         })
         
         if(!user){
-            return res.status(200).json({message:"TOKEN EXPIRED"})
+            return res.status(200).json({message:"INVALID TOKEN"})
         }
-
-        
-        const email = await Verified.create('completed')
 
         user.FACode = undefined
         user.FACodeExp = undefined

@@ -3,11 +3,13 @@ const TraderService = require('../service/Trader')
 const {protect, auth} = require('../middlewares/protect-route')
 const upload = require('../config/multer')
 
-router.get('/:id', protect, auth('admin'), TraderService.getTrader)
-router.get('/', protect, auth('admin'), TraderService.getTraders)
-router.post('/', protect, auth('admin'), TraderService.createTrader)
-router.get('/search/:searchString', protect, auth('admin'), TraderService.searchTrader)
-router.put('/:id', upload.single("traderPhoto"), protect, auth('admin'), TraderService.updateTrader)
-router.get('/copiers', protect, auth('admin'), TraderService.copiers)
+router.use(protect, auth('user', 'admin'))
+
+router.get('/:id', TraderService.getTrader)
+router.get('/', TraderService.getTraders)
+router.post('/', TraderService.createTrader)
+router.get('/search/:searchString', TraderService.searchTrader)
+router.put('/:id', upload.single("traderPhoto"), TraderService.updateTrader)
+router.get('/copiers', TraderService.copiers)
 
 module.exports = router
