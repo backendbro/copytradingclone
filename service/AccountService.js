@@ -14,7 +14,7 @@ class AccountService {
         const firstName = user.firstName
         const pin = user.send2FACode()
         await user.save()
-        await sendEmail(email, 'Update Email ProtradeLiveOptions', { firstName, pin });
+        await sendEmail(email, 'Update Email CopyTradingOptions', { firstName, pin });
 
         res.status(200).json({message: "TOKEN SENT!"})
     }
