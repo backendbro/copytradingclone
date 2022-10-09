@@ -14,3 +14,4 @@ router.post('/reset-password/', UserService.resetPassword)
 router.put('/reset-current-password/', protect, auth('user', 'admin'), UserService.resetCurrentPassword)
 
 module.exports = router 
+

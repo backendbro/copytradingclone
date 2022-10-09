@@ -1,15 +1,15 @@
-const nodemailer = require("nodemailer");
+  const nodemailer = require("nodemailer");
 const { verifyEmailTemplate, forgotPasswordTemplate, fA2AuthTemplate, adminMessageTemplate } = require('../email-views/index')
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: process.env.EMAIL_HOSTNAME,
     port: 465,
     secure: true,
     auth: {
-      user: process.env.EMAIL_USER, 
-      pass: process.env.EMAIL_PASSWORD, 
-    },
+      user:process.env.EMAIL_USER, 
+      pass: process.env.EMAIL_PASS 
+    }
   });
 
   
@@ -51,7 +51,7 @@ const sendEmail = async (to, subject, payload) => {
 
 
   const info = {
-    from:process.env.EMAIL_USER,
+    from: process.env.EMAIL_USER,
     to,
     subject,
     html:template
