@@ -23,7 +23,7 @@ const WithDrawalSchemaPaypal = new Schema ({
     },
     approved:{
         type:Boolean,
-        default:true
+        default:false
     },
     user:{ type: Schema.Types.ObjectId, ref:"User" }
 }, {timestamps:true})

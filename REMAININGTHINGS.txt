@@ -2,3 +2,5 @@ Remember to implement the do not repeat yourself by doing app.use(protect, auth)
 Remeber to implement pending deposits, on pending deposits, and to make sure to confirm it from the admin panel 
 Remember to optimmize the code
 RESEND PIN USERSERVICE SUBJECT SHOULD BE DYNAMIC
+when user is deleted, make sure to delete the user from referral page
+Remember to change the default to false: withdraw model
