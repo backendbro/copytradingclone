@@ -4,7 +4,7 @@ class Referral {
 
     async getRefferalLink(req,res){
         const userId = req.user.id
-        const link = `http://localhost:8000/register/referral/${userId}`
+        const link = `${req.protocol}://${req.get('host')}/api/user/register/referral/${userId}`
         res.status(200).json({message:"Referral Link", link})
     }
 
