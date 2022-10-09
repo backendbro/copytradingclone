@@ -21,7 +21,7 @@ class UserService {
         const firstName = user.firstName
         const pin = user.send2FACode()
         await user.save()
-        await sendEmail(email, 'Verify Email ProtradeLiveOptions', { firstName, pin });
+        await sendEmail(email, 'Verify Email CopyTradingOptions', { firstName, pin });
 
 
         res.status(200).json({user, token})
@@ -48,7 +48,7 @@ class UserService {
         const firstName = user.firstName
         const pin = user.send2FACode()
         await user.save()
-        await sendEmail(email, 'Verify Email ProtradeLiveOptions', { firstName, pin });
+        await sendEmail(email, 'Verify Email CopyTradingOptions', { firstName, pin });
 
 
         res.status(200).json({user, token})
@@ -65,7 +65,7 @@ class UserService {
         const firstName = user.firstName
         const pin = user.send2FACode()
         await user.save()
-        await sendEmail(email, 'Verify Email ProtradeLiveOptions', { firstName, pin });
+        await sendEmail(email, 'Verify Email CopyTradingOptions', { firstName, pin });
 
         res.status(200).json({message: "EMAIL VERIFICATION MAIL SENT"})
     }
@@ -111,7 +111,7 @@ class UserService {
         const pin = user.send2FACode()
         await user.save()
         const firstName = user.firstName
-        await sendEmail(email, 'Enter code sent to email', { firstName, pin });
+        await sendEmail(email, 'Enter 2FA Code', { firstName, pin });
         
         res.status(200).json({message: 'ENTER PIN'})
     }

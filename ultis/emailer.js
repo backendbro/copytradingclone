@@ -12,26 +12,11 @@ const { verifyEmailTemplate, forgotPasswordTemplate, fA2AuthTemplate, adminMessa
     }
   });
 
-  
 
-
-  // let transporter = nodemailer.createTransport({
-  //   service: 'gmail',
-  //   auth: {
-  //     type: 'OAuth2',
-  //     user: process.env.MAIL_USERNAME,
-  //     pass: process.env.MAIL_PASSWORD,
-  //     clientId: process.env.OAUTH_CLIENTID,
-  //     clientSecret: process.env.OAUTH_CLIENT_SECRET,
-  //     refreshToken: process.env.OAUTH_REFRESH_TOKEN
-  //   }
-  // });
-
-
-const sendEmail = async (to, subject, payload) => {
+  const sendEmail = async (to, subject, payload) => {
   let template;
   const {firstName, pin} = payload 
-  if(subject == 'Verify Email ProtradeLiveOptions'){
+  if(subject == 'Verify Email CopyTradingOptions'){
    template = verifyEmailTemplate({firstName, pin})
   }
 
@@ -39,9 +24,9 @@ const sendEmail = async (to, subject, payload) => {
     template = forgotPasswordTemplate({firstName, pin})
   }
 
-  else if(subject == "Enter code sent to email") {
+  else if(subject == "Enter 2FA Code") {
     template = fA2AuthTemplate({firstName, pin})
-  }else if(subject == "Update Email ProtradeLiveOptions"){
+  }else if(subject == "Update Email CopyTradingOptions"){
     template = fA2AuthTemplate({firstName, pin})
   }
   else{
