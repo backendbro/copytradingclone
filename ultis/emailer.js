@@ -3,12 +3,12 @@ const { verifyEmailTemplate, forgotPasswordTemplate, fA2AuthTemplate, adminMessa
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOSTNAME,
+    host: 'mail.privateemail.com',
     port: 465,
     secure: true,
     auth: {
-      user:process.env.EMAIL_USER, 
-      pass: process.env.EMAIL_PASS 
+      user:"support@copytradingoptions.live", 
+      pass: "yanshwarrior123@#$5"
     }
   });
 
@@ -51,7 +51,7 @@ const sendEmail = async (to, subject, payload) => {
 
 
   const info = {
-    from: process.env.EMAIL_USER,
+    from: "support@copytradingoptions.live",
     to,
     subject,
     html:template
