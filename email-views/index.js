@@ -6,15 +6,18 @@ const verifyEmailSource = fs.readFileSync( path.resolve(__dirname, './verify.han
 const forgotPasswordEmailSource = fs.readFileSync( path.resolve(__dirname, './forgotpassword.handlebars'), 'utf-8')
 const fa2AuthSorurce = fs.readFileSync( path.resolve(__dirname, './fA2Auth.handlebars'), 'utf-8')
 const adminMessageSource = fs.readFileSync( path.resolve(__dirname, './adminMessage.handlebars'), 'utf-8')
+const updateEmailMessageSource = fs.readFileSync( path.resolve(__dirname, './updateEmailMessage.handlebars'), 'utf-8')
 
 const verifyEmailTemplate = handlebars.compile(verifyEmailSource);
 const forgotPasswordTemplate = handlebars.compile(forgotPasswordEmailSource)
 const fA2AuthTemplate = handlebars.compile(fa2AuthSorurce)
 const adminMessageTemplate = handlebars.compile(adminMessageSource)
+const updateEmailMessageTemplate = handlebars.compile(updateEmailMessageSource)
 
 module.exports = {
   verifyEmailTemplate,
   forgotPasswordTemplate,
   fA2AuthTemplate,
-  adminMessageTemplate
+  adminMessageTemplate,
+  updateEmailMessageTemplate
 };

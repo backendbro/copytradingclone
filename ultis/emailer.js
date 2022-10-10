@@ -1,5 +1,11 @@
   const nodemailer = require("nodemailer");
-const { verifyEmailTemplate, forgotPasswordTemplate, fA2AuthTemplate, adminMessageTemplate } = require('../email-views/index')
+const { 
+   verifyEmailTemplate, 
+   forgotPasswordTemplate, 
+   fA2AuthTemplate,
+   adminMessageTemplate,
+   updateEmailMessageTemplate
+  } = require('../email-views/index')
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
@@ -27,7 +33,7 @@ const { verifyEmailTemplate, forgotPasswordTemplate, fA2AuthTemplate, adminMessa
   else if(subject == "Enter 2FA Code") {
     template = fA2AuthTemplate({firstName, pin})
   }else if(subject == "Update Email CopyTradingOptions"){
-    template = fA2AuthTemplate({firstName, pin})
+    template = updateEmailMessageTemplate({firstName, pin})
   }
   else{
     const {firstName, description} = payload
