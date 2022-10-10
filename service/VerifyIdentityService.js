@@ -6,35 +6,44 @@ class VerifyIdentityService {
        if(!req.files){
         res.status(404).json({message:"UPLOAD AN IMAGE"})
        }
-       const {userId} = req.params
-
+       const userId= req.user.id
        const {frontImage, backImage} = req.files 
        
        try {
             const frontImagePath = frontImage[0].path 
             const frontImageUpload = await uploadSingleFile(frontImagePath)
-            const frontImageSecureUrl = frontImageUpload.url
+            const frontImageUrl = frontImageUpload.url
 
             const backImagePath = backImage[0].path
             const backImageUpload  = await uploadSingleFile(backImagePath)
-            const backImageSecureUrl = backImageUpload.url
-            console.log(backImageSecureUrl)
+            const backImageUrl = backImageUpload.url
+            
 
-            const user = await UserModel.findByIdAndUpdate(userId, 
-                { frontImageUrl:frontImageSecureUrl,
-                backImageUrl:backImageSecureUrl}, 
-                {new:true}
-                )
-
-                res.status(200).json({message:"IMAGE UPLOADED", user})
+            const user = await UserModel.findByIdAndUpdate(userId, { frontImageUrl, backImageUrl}, {new:true})
+            res.status(200).json({message:"IMAGE UPLOADED", user})
        } catch (error) {
         console.log(error)
        }
 
     }
 
-    async verifyIDLoggedInUser(req,res) {
-        console.log(req.files)
+    async sendAddressBill(){
+        if(!req.file){
+            res.status(404).json({message:"UPLOAD AN IMAGE"})
+           }
+           const userId= req.user.id
+           const addressBill = req.file
+           
+           try {
+                const frontImagePath = frontImage[0].path 
+                const frontImageUpload = await uploadSingleFile(frontImagePath)
+                const frontImageUrl = frontImageUpload.url            
+    
+                const user = await UserModel.findByIdAndUpdate(userId, { frontImageUrl, backImageUrl}, {new:true})
+                res.status(200).json({message:"IMAGE UPLOADED", user})
+           } catch (error) {
+            console.log(error)
+           }
     }
 }
 
