@@ -84,30 +84,7 @@ class AccountService {
             return res.status(404).json({user})
         }
 
-        if(!req.file){
-            return res.status(404).json({message: "UPLOAD A FILE"})
-        }
-
-        const updateAddress = {
-            city:req.body.city,
-            state:req.body.state,
-            streetAddress:req.body.streetAddress,
-            country:req.body.country,
-            postCode:req.body.postCode
-        }
-        
-        if(req.file){
-        const addressBill = req.file
-        
-        try {
-            const addressBillPath = addressBill.path 
-            const addressBillUpload = await uploadSingleFile(addressBillPath)
-            const addressBillUrl = addressBillUpload.url
-       } catch (error) {
-        console.log(error)
-       }    
-    }
-       user = await UserModel.findByIdAndUpdate(userId,  { updateAddress, addressBillPic:addressBillUrl }, {new:true} )
+       user = await UserModel.findByIdAndUpdate(userId,  req.body, {new:true} )
        res.status(200).json({message:"IMAGE UPLOADED", user})
 
     }
