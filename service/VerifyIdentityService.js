@@ -27,7 +27,7 @@ class VerifyIdentityService {
 
     }
 
-    async sendAddressBill(){
+    async sendAddressBill(req,res){
         if(!req.file){
             res.status(404).json({message:"UPLOAD AN IMAGE"})
            }
@@ -35,11 +35,11 @@ class VerifyIdentityService {
            const addressBill = req.file
            
            try {
-                const frontImagePath = frontImage[0].path 
-                const frontImageUpload = await uploadSingleFile(frontImagePath)
-                const frontImageUrl = frontImageUpload.url            
+                const addressBillPath = addressBill.path 
+                const addressBillUpload = await uploadSingleFile(addressBillPath)
+                const addressBillUrl = addressBillUpload.url            
     
-                const user = await UserModel.findByIdAndUpdate(userId, { frontImageUrl, backImageUrl}, {new:true})
+                const user = await UserModel.findByIdAndUpdate(userId, { addressBillPic:addressBillUrl}, {new:true})
                 res.status(200).json({message:"IMAGE UPLOADED", user})
            } catch (error) {
             console.log(error)
