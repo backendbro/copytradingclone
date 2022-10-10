@@ -5,7 +5,6 @@ const upload = require('../config/multer')
 
 router.use(protect, auth('user', 'admin'))
 
-router.get('/', Contract.getContracts)
 router.post('/', Contract.buyContracts)
 router.put('/upload-contract/:id', upload.single("uploadProof"), Contract.uploadProof)
 

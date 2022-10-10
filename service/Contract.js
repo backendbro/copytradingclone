@@ -4,18 +4,6 @@ const uploadSingleFile = require('../config/cloudinary')
 
 class Contracts {
 
-    async getContracts (req,res) {
-      
-        const userId = req.user.id
-        let user = await UserModel.findById(userId)
-        if(!user){
-            return res.status(404).json({user})
-        }
-        
-        const contracts = await Contract.find({confirmed:"false"})
-        res.status(200).json({message:"DEPOSITS MADE", contracts})
-    }
-
     async buyContracts (req,res) {
        
         const userId = req.user.id
