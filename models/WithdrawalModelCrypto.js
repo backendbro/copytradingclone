@@ -18,7 +18,7 @@ const WithDrawalSchemaCrypto = new Schema ({
         required:true
     },
     amount:{
-        type:Number,
+        type:String,
         required:false
     },
     approved:{

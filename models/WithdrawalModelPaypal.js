@@ -18,7 +18,7 @@ const WithDrawalSchemaPaypal = new Schema ({
           ]
     },
     amount:{
-        type:Number,
+        type:String,
         required:true
     },
     approved:{

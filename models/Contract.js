@@ -3,7 +3,7 @@ const {model, Schema} = require('mongoose')
 const ContractSchema
   = new Schema ({
     amount:{
-        type:Number,
+        type:String,
         required:true
     },
     paymentMethod:{

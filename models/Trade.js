@@ -2,7 +2,7 @@ const {model, Schema} = require('mongoose')
 
 const TradeSchema  = new Schema ({
     amount:{
-        type:Number,
+        type:String,
         required:true
     },
     paymentMethod:{

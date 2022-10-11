@@ -14,7 +14,7 @@ const WithDrawalSchemaCashApp = new Schema ({
         required:true
     },
     amount:{
-        type:Number,
+        type:String,
         required:true
     },
     approved:{

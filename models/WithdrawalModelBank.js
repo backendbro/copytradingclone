@@ -14,11 +14,11 @@ const WithDrawalSchemaBank = new Schema ({
         required:true
     },
     accountNumber:{
-        type:Number,
+        type:String,
         required:true
     },
     amount:{
-        type:Number,
+        type:String,
         required:true
     },
     approved:{
