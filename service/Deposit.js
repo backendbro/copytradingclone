@@ -1,7 +1,9 @@
 const Deposit = require('../models/Deposits')
 const UserModel = require('../models/UserModel')
 const uploadSingleFile = require('../config/cloudinary')
-const Contract = require('./Contract')
+const Contract = require('../models/Contract')
+const Trade = require('../models/Trade')
+
 
 class Deposits {
 
