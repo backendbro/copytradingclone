@@ -4,11 +4,19 @@ const UserModel = require('../models/UserModel')
 class WalletService {
 
     async getWallet(req,res){
-       
         const wallets = await Wallet.find()
         res.status(200).json({message:"WALLETS", wallets})
     }
 
+    async getSingleWallet (req,res) {
+        const {id} = req.params
+        const wallet = await Wallet.findById(id)
+        if(!wallet){
+            res.status(404).json({message:"WALLET NOT FOUND"})
+        }
+
+        res.status(200).json({message: 'WALLET FOUND', wallet})
+    }
     async addWallet(req,res) {
         const userId = req.user.id
         const user = await UserModel.findById(userId)
