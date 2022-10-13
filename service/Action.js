@@ -12,8 +12,9 @@ class ActionService  {
         const {id} = req.params
         const action = await Action.findById(id)
         if(!action){
-            return res.status(404).json({message:"SINGLE ACTION", action})
+            return res.status(404).json({message:"ACTION NOT FOUND"})
         }
+        res.status(200).json({message:"SINGLE ACTION", action})
     }
 
     async createAction(req,res) {
