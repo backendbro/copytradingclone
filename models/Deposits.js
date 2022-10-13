@@ -7,7 +7,7 @@ const DepositSchema  = new Schema ({
     },
     paymentMethod:{
         type:String,
-        enum:['LTC Litecoin', 'USDT Tether ERC20', 'BTC BITCOIN', 'ETH ETHEREUM'],
+        enum:['LTC Litecoin', 'USDT Tether', 'BTC BITCOIN', 'ETH ETHEREUM'],
         required:true
     },
     to:{
@@ -16,9 +16,9 @@ const DepositSchema  = new Schema ({
         required:true
     },
     depositImage:String,
-    confirmed:{
-        type:Boolean,
-        default:false
+    status:{
+        type:String,
+        default:'Pending'
     },
     user:{ type: Schema.Types.ObjectId, ref:"User" }
 }, {timestamps:true})

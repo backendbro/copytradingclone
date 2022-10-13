@@ -4,3 +4,4 @@ Remember to optimmize the code
 RESEND PIN USERSERVICE SUBJECT SHOULD BE DYNAMIC
 when user is deleted, make sure to delete the user from referral page
 Remember to change the default to false: withdraw model
+make to check user.role !== 'admin' on every page only the admin should have access to

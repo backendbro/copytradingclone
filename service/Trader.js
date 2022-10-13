@@ -91,37 +91,38 @@ class TraderService {
        }
        
        let traderPhoto;
+       let traderPhotoUploadUrl;
        if(req.file){
         traderPhoto = req.file
-       }
+        }
        
         try {
             const traderPhotoPath = traderPhoto.path 
             const traderPhotoUpload = await uploadSingleFile(traderPhotoPath)
-            const traderPhotoUploadUrl = traderPhotoUpload.url
-
-            req.body.photo = traderPhotoUploadUrl 
-            const trader = await Trader.findByIdAndUpdate(id, req.body, {new:true} )
-            res.status(200).json({message:"TRADER PROFILE UPDATED", trader})
+            traderPhotoUploadUrl = traderPhotoUpload.url
        } catch (error) {
         console.log(error)
        }
 
-    
+       req.body.photo = traderPhotoUploadUrl 
+       const trader = await Trader.findByIdAndUpdate(id, req.body, {new:true} )
+       res.status(200).json({message:"TRADER PROFILE UPDATED", trader})
     
     }
 
-    async copiers (req,res) {
+
+    async getCopiers (req,res) {
          const userId = req.user.id
         let user = await UserModel.findById(userId)
         if(!user){
             return res.status(404).json({user})
         }
-    
         
+        const copiers = await Copiers.find()
+        res.status(200).json({message:"COPIERS", copiers})
     }
 
-    async approveCopiers (req,res) {
+    async declineCopiers (req,res) {
         const userId = req.user.id
        let user = await UserModel.findById(userId)
        if(!user){

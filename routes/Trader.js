@@ -10,6 +10,7 @@ router.get('/', TraderService.getTraders)
 router.post('/', TraderService.createTrader)
 router.get('/search/:searchString', TraderService.searchTrader)
 router.put('/:id', upload.single("traderPhoto"), TraderService.updateTrader)
-router.get('/copiers', TraderService.copiers)
+router.get('/copiers', TraderService.getCopiers)
+router.get('/copiers/:id', TraderService.declineCopiers)
 
 module.exports = router

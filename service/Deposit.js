@@ -8,7 +8,7 @@ const Trade = require('../models/Trade')
 class Deposits {
 
     async getDeposits (req,res) {
-        const userId = req.user.id
+        const userId = req.user.id  
         let user = await UserModel.findById(userId)
         if(!user){
             return res.status(404).json({user})
