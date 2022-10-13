@@ -32,7 +32,7 @@ const UserSchema = new Schema ({
     role:{
         type:String,
         enum:['admin', 'user'],
-        default:'admin'
+        default:'user'
     },
     currency:{
         type:String,

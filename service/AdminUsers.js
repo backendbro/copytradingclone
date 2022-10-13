@@ -135,9 +135,14 @@ class AdminUser  {
         res.status(200).json({message:"DEPOSIT EDITED", deposit}) 
     }
 
-    getandUpdateDeposits(){}
-
-    deleteDeposits(){}
+    async deleteDeposits(req,res){
+        const {id} = req.params 
+        const depositExist = await Deposit.findById(id)
+        if(!depositExist){
+            return res.status(200).json({message:"DEPOSIT DELETED"})
+        }
+        
+    }
 
     withdrawal(){}
 }

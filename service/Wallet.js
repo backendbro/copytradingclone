@@ -3,6 +3,11 @@ const UserModel = require('../models/UserModel')
 
 class WalletService {
 
+    async getWallet(){
+        const wallets = await Wallet.find()
+        res.status(200).json({message:"WALLETS", wallets})
+    }
+
     async addWallet() {
         const userId = req.user.id
         const user = await UserModel.findById(userId)
