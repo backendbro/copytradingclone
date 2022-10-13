@@ -42,12 +42,12 @@ class WalletService {
         if(!user){
             return res.status(404).json({message:"USER DOES NOT EXIST"})
         }
-        
+
         if(user.role !== req.user.role){
             return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
        }
 
-       const wallet = await Wallet.findByIdAndUpdate(walletId)
+       const wallet = await Wallet.findById(walletId)
        if(!wallet){
         return res.status(404).json({message:"WALLET DOES NOT EXIST"})
        }
