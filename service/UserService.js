@@ -16,7 +16,7 @@ class UserService {
        }
 
         const user = await UserModel.create(req.body)
-        const token = user.createToken(process.env.registerExpTime)
+        const token = user.createToken('1hr')
 
         const firstName = user.firstName
         const pin = user.send2FACode()
@@ -131,7 +131,7 @@ class UserService {
         user.FACodeExp = undefined
         await user.save()
 
-        const loginToken = user.createToken(process.env.loginExpTime)
+        const loginToken = user.createToken('24hr')
         res.status(200).json({message:"USER LOGGED IN", user, loginToken})
     }
 
