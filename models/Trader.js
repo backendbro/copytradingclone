@@ -31,7 +31,8 @@ description:String,
 price:Number,
 type:{
     type:String,
-    enum:['Human','Bot']
+    enum:['Human','Bot'],
+    required:true
 }
 },{timestamps:true})
 
