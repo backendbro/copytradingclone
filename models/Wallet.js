@@ -10,7 +10,7 @@ const WalletSchema = new Schema ({
         required:true
     },
     walletAddress:{
-        type:String,
+        type:String,    
         required:true
     },
     tag:String,

@@ -23,6 +23,16 @@ class WalletService {
        res.status(200).json({message:"WALLET CREATED", wallet})
     }
 
+    async updateWallet(req,res) {
+        const {id} = req.params
+        const walletExist = await Wallet.findById(id)
+        if(!walletExist){
+            return res.status(404).json({message:"WALLLET DOES NOT EXIST"})
+        }
+
+       const wallet = await Wallet.findByIdAndUpdate(id, req.body, {new:true})
+       res.status(200).json({message:"WALLET UPDATED", wallet})
+    }
 
     async deleteWallet(req,res){
         const userId = req.user.id
