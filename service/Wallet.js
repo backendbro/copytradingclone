@@ -8,7 +8,7 @@ class WalletService {
         res.status(200).json({message:"WALLETS", wallets})
     }
 
-    async addWallet() {
+    async addWallet(req,res) {
         const userId = req.user.id
         const user = await UserModel.findById(userId)
         if(!user){
@@ -24,7 +24,7 @@ class WalletService {
     }
 
 
-    async deleteWallet(){
+    async deleteWallet(req,res){
         const userId = req.user.id
         const {walletId} = req.params
 
