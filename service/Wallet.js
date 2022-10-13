@@ -4,6 +4,7 @@ const UserModel = require('../models/UserModel')
 class WalletService {
 
     async getWallet(req,res){
+       
         const wallets = await Wallet.find()
         res.status(200).json({message:"WALLETS", wallets})
     }
