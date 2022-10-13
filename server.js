@@ -34,6 +34,7 @@ const Wallet = require('./routes/Wallet')
 const Trade = require('./routes/Trade')
 const Trader = require('./routes/Trader')
 const AdminUsers = require('./routes/AdminUsers')
+const Action = require('./routes/Action')
 
 app.use('/api/user', auth)
 app.use('/api/verify-id', verifyId)
@@ -46,6 +47,7 @@ app.use('/api/wallet', Wallet)
 app.use('/api/trade', Trade)
 app.use('/api/trader', Trader)
 app.use('/api/admin-user', AdminUsers)
+app.use('/api/action', Action)
 
 app.use(notFound)
 
