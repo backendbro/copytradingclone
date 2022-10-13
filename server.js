@@ -19,7 +19,7 @@ connectDB()
 
 
 app.get('/', (req,res) => {
-    res.send('Hello world 3')
+    res.send('Hello world 4')
 })
 
 

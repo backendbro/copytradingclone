@@ -3,7 +3,7 @@ const UserModel = require('../models/UserModel')
 
 class WalletService {
 
-    async getWallet(){
+    async getWallet(req,res){
         const wallets = await Wallet.find()
         res.status(200).json({message:"WALLETS", wallets})
     }
@@ -36,7 +36,7 @@ class WalletService {
 
     async deleteWallet(req,res){
         const userId = req.user.id
-        const {walletId} = req.params
+        const {id} = req.params
 
         const user = await UserModel.findById(userId)
         if(!user){
@@ -47,12 +47,12 @@ class WalletService {
             return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
        }
 
-       const wallet = await Wallet.findById(walletId)
+       const wallet = await Wallet.findById(id)
        if(!wallet){
         return res.status(404).json({message:"WALLET DOES NOT EXIST"})
        }
 
-       const walletD = await Wallet.findByIdAndDelete(walletId)
+       const walletD = await Wallet.deleteOne({id})
        res.status(200).json({message:"WALLET DELETED", walletD})
     }   
 
