@@ -4,7 +4,7 @@ const ActionSchema = new Schema ({
     name:String,
     from:String,
     amount:Number,
-    action:{type:String, enum:['withDrew', 'invested']},
+    action:{type:String, enum:['withdrew', 'invested']},
     currency:{type:String, enum:['USD', 'GBP', 'EUR']}
 },{timestamps:true})
 
