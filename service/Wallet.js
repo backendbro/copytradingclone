@@ -38,6 +38,11 @@ class WalletService {
         const userId = req.user.id
         const {walletId} = req.params
 
+        const user = await UserModel.findById(userId)
+        if(!user){
+            return res.status(404).json({message:"USER DOES NOT EXIST"})
+        }
+        
         if(user.role !== req.user.role){
             return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
        }
@@ -46,12 +51,6 @@ class WalletService {
        if(!wallet){
         return res.status(404).json({message:"WALLET DOES NOT EXIST"})
        }
-
-        const user = await UserModel.findById(userId)
-        if(!user){
-            return res.status(404).json({message:"USER DOES NOT EXIST"})
-        }
-
 
        const walletD = await Wallet.findByIdAndDelete(walletId)
        res.status(200).json({message:"WALLET DELETED", walletD})
