@@ -3,6 +3,19 @@ const UserModel = require('../models/UserModel')
 
 class ActionService  {
 
+    async getAction (req,res) {
+        const actions = await Action.find()
+        res.status(200).json({message:'ACTIONS', actions})
+    }
+
+    async getSingleAction (req,res) {
+        const {id} = req.params
+        const action = await Action.findById(id)
+        if(!action){
+            return res.status(404).json({message:"SINGLE ACTION", action})
+        }
+    }
+
     async createAction(req,res) {
         const userId = req.user.id
         const user = await UserModel.findById(userId)
