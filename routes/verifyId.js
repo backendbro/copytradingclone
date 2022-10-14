@@ -5,6 +5,7 @@ const {protect, auth} = require('../middlewares/protect-route')
 
 router.use(protect ,  auth('user', "admin"))
 
+router.get('/:id', VerifyIdentityService.verifiedAuth)
 router.put('/', upload.fields([
     { name: 'frontImage', maxCount: 1 },
     { name: 'backImage', maxCount: 1 }]), VerifyIdentityService.verifyIDLoggedInUser)

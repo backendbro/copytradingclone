@@ -20,6 +20,7 @@ const DepositSchema  = new Schema ({
         type:String,
         default:'Pending'
     },
+    failedStatusDate:Date,
     user:{ type: Schema.Types.ObjectId, ref:"User" }
 }, {timestamps:true})
 

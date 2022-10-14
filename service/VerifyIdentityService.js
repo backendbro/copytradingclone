@@ -1,5 +1,6 @@
 const uploadSingleFile = require('../config/cloudinary')
 const UserModel = require('../models/UserModel')
+const Verified = require('../models/Verified')
 class VerifyIdentityService {
     
     async verifyIDLoggedInUser (req,res) {
@@ -44,6 +45,12 @@ class VerifyIdentityService {
            } catch (error) {
             console.log(error)
            }
+    }
+
+    async verifiedAuth(req,res) {
+        const id = req.params
+        const verifiedAuths = await Verified.find(id)
+        res.status(200).json({message:"SINGLE USERS VERIFIABLES", verifiedAuths})
     }
 }
 

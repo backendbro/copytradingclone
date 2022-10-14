@@ -5,6 +5,7 @@ const WithdrawalModelCrypto = require("../models/WithdrawalModelCrypto")
 const WithdrawalModelPaypal = require("../models/WithdrawalModelPaypal")
 
 class WithDrawalService {
+    
     async bank(req,res){
         const userId = req.user.id
         const user = await UserModel.findById(userId)
@@ -56,10 +57,10 @@ class WithDrawalService {
             return res.status(404).json({nessage: "USER DOES"})
         }
         
-        const paypalWithDraw = await WithdrawalModelPaypal.find({approved:"true"})
-        const cashAppWithDraw = await WithdrawalModelCashApp.find({approved:"true"})
-        const bankWithDraw = await WithdrawalModelBank.find({approved:"true"})
-        const cryptoWithDraw = await WithdrawalModelCrypto.find({approved:"true"})
+        const paypalWithDraw = await WithdrawalModelPaypal.find()
+        const cashAppWithDraw = await WithdrawalModelCashApp.find()
+        const bankWithDraw = await WithdrawalModelBank.find()
+        const cryptoWithDraw = await WithdrawalModelCrypto.find()
 
         res.status(200).json({ paypalWithDraw, cashAppWithDraw, bankWithDraw, cryptoWithDraw})
     

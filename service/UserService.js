@@ -82,8 +82,16 @@ class UserService {
             return res.status(200).json({message:"INVALID TOKEN"})
         }
 
+        const verifiedObj = {
+            user: user.id,
+            email:"Verified"
+        }
+
         user.FACode = undefined
         user.FACodeExp = undefined
+        
+         await Verified.create(verifiedObj)
+        
         user.isVerifiedAcct = true  
         await user.save()
         

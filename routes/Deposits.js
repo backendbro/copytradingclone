@@ -3,7 +3,7 @@ const Deposits = require('../service/Deposit')
 const {protect, auth} = require('../middlewares/protect-route')
 const upload = require('../config/multer')
 
-router.use(protect, auth('user', 'admin'))
+router.use(protect, auth('user'))
 
 router.get('/', Deposits.getDeposits)
 router.post('/', Deposits.makeDeposits)

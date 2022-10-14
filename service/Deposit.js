@@ -1,25 +1,22 @@
 const Deposit = require('../models/Deposits')
 const UserModel = require('../models/UserModel')
 const uploadSingleFile = require('../config/cloudinary')
-const Contract = require('../models/Contract')
-const Trade = require('../models/Trade')
+
 
 
 class Deposits {
 
     async getDeposits (req,res) {
-        const userId = req.user.id  
-        let user = await UserModel.findById(userId)
-        if(!user){
-            return res.status(404).json({user})
-        }
+        const start = Date.now()
+        let deposits;
+        deposits = await Deposit.find()
+        deposits.forEach(async deposit  => {
+            if(new Date(deposit.failedStatusDate).getTime() > start){
+              await Deposit.findByIdAndUpdate(deposit.id, {status:"failed"}, {new:true})
+            }
+        } )
         
-        const deposits = await Deposit.find()
-        const contracts = await Contract.find()
-        const trade = await Trade.find()
-
-        
-        res.status(200).json({message:"DEPOSITS MADE", deposits, contracts, trade})
+        res.status(200).json({message:"DEPOSITS MADE", deposits})
     }
 
     async makeDeposits (req,res) {
@@ -30,6 +27,10 @@ class Deposits {
             return res.status(404).json({user})
         }
         req.body.user = userId
+        const date = new Date()
+        req.body.failedStatusDate = date.setDate(date.getDate() + 1);
+        console.log(req.body)
+
         const deposit = await Deposit.create(req.body)
         res.status(200).json({message:"DEPOSIT MADE", deposit})
     }

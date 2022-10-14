@@ -1,9 +1,9 @@
 const {model, Schema} = require('mongoose')
 
 const VerifiedSchema = new Schema ({
-    email:String,
-    IdentityVerification:String,
-    AddressVerification:String,
+    email:{type:String},
+    IdentityVerification:{type:String, default:"pending"},
+    AddressVerification:{type:String, default:"Pending"},
     user:{ type: Schema.Types.ObjectId, ref:"User" }
 }, {timestamps:true})
 

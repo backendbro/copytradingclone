@@ -1,8 +1,6 @@
 const UserModel = require('../models/UserModel')
 const AdminUsers = require('../models/AdminUsers')
-const Contract = require('../models/Contract')
 const Deposit = require('../models/Deposits')
-const Trade = require('../models/Trade')
 const WithBank = require('../models/WithdrawalModelBank')
 const WithCash = require('../models/WithdrawalModelCashApp')
 const WithCrypto = require('../models/WithdrawalModelCrypto')
@@ -38,9 +36,7 @@ class AdminUser  {
         }
 
         await UserModel.deleteOne({userId})
-        await Contract.deleteOne({userId})
         await Deposit.deleteOne({userId})
-        await Trade.deleteOne({userId})
         await WithBank.deleteOne({userId})
         await WithCrypto.deleteOne({userId})
         await WithCash.deleteOne({userId})
