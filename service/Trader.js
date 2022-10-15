@@ -128,7 +128,8 @@ class TraderService {
        if(!user){
            return res.status(404).json({user})
        }
-   
+       
+    res.status(200).json({message:"COPYING DECLINED"})
        
    }
 
