@@ -19,7 +19,18 @@ connectDB()
 
 
 app.get('/', (req,res) => {
-    res.send('Hello world 4')
+    res.send('Hello world 5')
+})
+
+const cron = require('node-cron')
+let shell = require('shelljs')
+cron.schedule(" * * * * * *", function() {
+    console.log("schedule running")
+    if(shell.exec('dir').code !== 0){
+        console.log("Something went wrong")
+    }else{
+        console.log('Hello world')
+    }
 })
 
 
