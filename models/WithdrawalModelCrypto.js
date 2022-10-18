@@ -21,7 +21,7 @@ const WithDrawalSchemaCrypto = new Schema ({
         type:String,
         required:false
     },
-    approved:{
+    status:{
         type:String,
         default:"pending"
     },user:{ type: Schema.Types.ObjectId, ref:"User" }

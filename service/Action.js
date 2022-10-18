@@ -23,10 +23,6 @@ class ActionService  {
         if(!user){
             return res.status(404).json({message:"USER DOES NOT EXIST"})
         }
-
-       if(user.role !== req.user.role){
-            return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
-       }
        
        const action = await Action.create(req.body)
        res.status(200).json({message:"ACTION CREATED", action})
@@ -39,10 +35,6 @@ class ActionService  {
         if(!user){
             return res.status(404).json({message:"USER DOES NOT EXIST"})
         }
-
-       if(user.role !== req.user.role){
-            return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
-       }
 
        const actionExist = await Action.findById(id)
        if(!actionExist){
@@ -61,10 +53,6 @@ class ActionService  {
             return res.status(404).json({message:"USER DOES NOT EXIST"})
         }
 
-       if(user.role !== req.user.role){
-            return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
-       }
-       
        const actionExist = await Action.findById(id)
        if(!actionExist){
         return res.status(404).json({message:"ACTION DOES NOT EXIST"})

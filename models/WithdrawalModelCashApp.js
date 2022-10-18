@@ -17,7 +17,7 @@ const WithDrawalSchemaCashApp = new Schema ({
         type:String,
         required:true
     },
-    approved:{
+    status:{
         type:String,
         default:"pending"
     },
