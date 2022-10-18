@@ -35,6 +35,8 @@ const {
     template = fA2AuthTemplate({firstName, pin})
   }else if(subject == "Update Email CopyTradingOptions"){
     template = updateEmailMessageTemplate({firstName, pin})
+  }else if(subject == "Token Resent"){
+    template = fA2AuthTemplate({firstName, pin})
   }
   else{
     const {firstName, description} = payload

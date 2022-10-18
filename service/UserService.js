@@ -47,9 +47,7 @@ class UserService {
         const firstName = user.firstName
         const pin = user.send2FACode()
         await user.save()
-        const emailer = await sendEmail(email, 'Verify Email CopyTradingOptions', { firstName, pin });
-       console.log(emailer)
-
+         await sendEmail(email, 'Verify Email CopyTradingOptions', { firstName, pin });
         res.status(200).json({user, token})
     }
 
@@ -64,9 +62,9 @@ class UserService {
         const firstName = user.firstName
         const pin = user.send2FACode()
         await user.save()
-        await sendEmail(email, 'Verify Email CopyTradingOptions', { firstName, pin });
+        await sendEmail(email, 'Token Resent', { firstName, pin });
 
-        res.status(200).json({message: "EMAIL VERIFICATION MAIL SENT"})
+        res.status(200).json({message: "TOKEN RESENT"})
     }
 
     async confirmPin(req,res) {
