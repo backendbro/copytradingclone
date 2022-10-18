@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const WalletService = require('../service/Wallet')
 const {protect, auth} = require('../middlewares/protect-route')
-const Wallet = require('../models/Wallet')
 router.use(protect)
 
 router.get('/', auth("user", "admin"), WalletService.getWallet)

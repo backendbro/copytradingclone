@@ -28,7 +28,7 @@ class Deposits {
         }
         req.body.user = userId
         const date = new Date()
-        req.body.failedStatusDate = date.setDate(date.getDate() + 1);
+        req.body.failedStatusDate = date.setDate(date.getHours() + 1);
         console.log(req.body)
 
         const deposit = await Deposit.create(req.body)
