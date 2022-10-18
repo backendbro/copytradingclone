@@ -11,7 +11,7 @@ class Deposits {
         let deposits;
         deposits = await Deposit.find()
         deposits.forEach(async deposit  => {
-            if(new Date(deposit.failedStatusDate).getTime() > start){
+            if(new Date(deposit.failedStatusDate).getTime() < start){
               await Deposit.findByIdAndUpdate(deposit.id, {status:"failed"}, {new:true})
             }
         } )
@@ -28,7 +28,7 @@ class Deposits {
         }
         req.body.user = userId
         const date = new Date()
-        req.body.failedStatusDate = date.setDate(date.getHours() + 1);
+        req.body.failedStatusDate = date.setTime(date.getTime() + (2*60*60*1000)); 
         console.log(req.body)
 
         const deposit = await Deposit.create(req.body)
@@ -40,8 +40,14 @@ class Deposits {
         const depositId = req.params.id
         let user = await UserModel.findById(userId)
         if(!user){
-            return res.status(404).json({user})
+            return res.status(404).json({message:"USER NOT FOUND"})
         }
+
+        const start = Date.now()
+        const deposit = await Deposit.findById(depositId)
+        if(new Date(deposit.failedStatusDate).getTime() < start){
+          return res.status(404).json({message:"PAYMENT LINK EXPIRED"})
+          }
 
         if(!req.file){
             return res.status(404).json({message:"PLEASE UPLOAD AN IMAGE"})
