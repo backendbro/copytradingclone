@@ -23,6 +23,7 @@ const {
   let template;
   const {firstName, pin} = payload 
   if(subject == 'Verify Email CopyTradingOptions'){
+    console.log(firstName, pin)
    template = verifyEmailTemplate({firstName, pin})
   }
 
