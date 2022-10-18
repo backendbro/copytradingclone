@@ -1,12 +1,13 @@
 const UserModel = require('../models/UserModel')
 const AdminUsers = require('../models/AdminUsers')
 const Deposit = require('../models/Deposits')
-const WithBank = require('../models/WithdrawalModelBank')
-const WithCash = require('../models/WithdrawalModelCashApp')
-const WithCrypto = require('../models/WithdrawalModelCrypto')
-const WithPaypal = require('../models/WithdrawalModelPaypal')
+const WithdrawalModelBank = require("../models/WithdrawalModelBank")
+const WithdrawalModelCashApp = require("../models/WithdrawalModelCashApp")
+const WithdrawalModelCrypto = require("../models/WithdrawalModelCrypto")
+const WithdrawalModelPaypal = require("../models/WithdrawalModelPaypal")
 const sendEmail = require('../ultis/emailer')
 const Deposits = require('../models/Deposits')
+
 
 
 
@@ -64,17 +65,7 @@ class AdminUser  {
        const crypto = await WithCrypto.find({_id:userId}, {approved:"false"})
        const paypal = await WithPaypal.find({_id:userId}, {approved:"false"})
 
-       res.status(200).json({
-        message:"PROFILE", 
-        user, 
-        pendingDeposits:deposits.length,
-        pendingBank: bank.length,
-        pendingCashApp: cashApp.length,
-        pendingCrypto: crypto.length,
-        pendingPaypal: paypal.length
-    })
-
-    }
+       res.status(200).json({ message:"PROFILE", user, deposits, bank,cashApp,crypto, paypal }) }
 
     async openTrade (req,res) {
         const user = req.user.id
@@ -119,6 +110,7 @@ class AdminUser  {
         const deposit = await Deposits.findById(depositId)
         res.status(200).json({message:"SINGLE DEPOSIT", deposit})
     }
+    
     async confirmDeposits(req,res){
         const {id} = req.params 
         let deposit = await Deposit.findById(id)
@@ -140,7 +132,79 @@ class AdminUser  {
         
     }
 
-    withdrawal(){}
+    async getWithDrawals(req,res){
+        const {id} = req.body
+        const user = await UserModel.findById(id)
+        if(!user){
+            return res.status(404).json({nessage: "USER DOES"})
+        }
+        
+        const paypalWithDraw = await WithdrawalModelPaypal.find()
+        const cashAppWithDraw = await WithdrawalModelCashApp.find()
+        const bankWithDraw = await WithdrawalModelBank.find()
+        const cryptoWithDraw = await WithdrawalModelCrypto.find()
+
+        res.status(200).json({ paypalWithDraw, cashAppWithDraw, bankWithDraw, cryptoWithDraw})
+    
+    }
+
+    async getSingleWithDrawal(req,res) {
+        const {id} = req.body
+        const user = await UserModel.findById(id)
+        if(!user){
+            return res.status(404).json({nessage: "USER DOES"})
+        }
+        
+        const paypalWithDraw = await WithdrawalModelPaypal.findById(id)
+        if(paypalWithDraw){
+            return res.status(200).json({paypalWithDraw})
+        }
+        const cashAppWithDraw = await WithdrawalModelCashApp.findById(id)
+        if(cashAppWithDraw){
+            return res.status(200).json({message:'WITHDRAW', paypalWithDraw})
+        }
+        const bankWithDraw = await WithdrawalModelBank.findById(id)
+        if(bankWithDraw){
+            return res.status(200).json({bankWithDraw})
+        }
+        const cryptoWithDraw = await WithdrawalModelCrypto.findById(cryptoWithDraw)
+        if(cryptoWithDraw){
+            return res.status(200).json({cryptoWithDraw})
+        }
+    }
+ 
+
+    async updateWithdrawal(req,res){
+        const {id} = req.body
+        
+        const paypalWithDraw = await WithdrawalModelPaypal.findById(id)
+        if(paypalWithDraw){
+           const update = await WithdrawalModelPaypal.findByIdAndUpdate(id, req.body, {new:true})
+           console.log(update)
+           res.status(200).json({update})
+        }
+
+        const cashAppWithDraw = await WithdrawalModelCashApp.findById(id)
+        if(cashAppWithDraw){
+           const update = await WithdrawalModelCashApp.findByIdAndUpdate(id, req.body, {new:true})
+           console.log(update)
+           res.status(200).json({update})
+        }
+
+        const bankWithDraw = await WithdrawalModelBank.findById(id)
+        if(bankWithDraw){
+           const update = await WithdrawalModelBank.findByIdAndUpdate(id, req.body, {new:true})
+           console.log(update)
+           res.status(200).json({update})
+        }
+
+        const cryptoWithDraw = await WithdrawalModelCrypto.findById(cryptoWithDraw)
+        if(cryptoWithDraw){
+            const update = await WithdrawalModelCrypto.findByIdAndUpdate(id, req.body, {new:true})
+            console.log(update)
+            res.status(200).json({update})
+         }
+    }
 }
 
 module.exports = new AdminUser()

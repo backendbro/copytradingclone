@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { protect, auth } = require('../middlewares/protect-route')
 const WithDrawalService = require('../service/WithdrawalService')
-router.use(protect ,  auth('user', "admin"))
+router.use(protect ,  auth("user"))
 
 router.get('/', WithDrawalService.getWithDrawals)
 router.post('/bank', WithDrawalService.bank)

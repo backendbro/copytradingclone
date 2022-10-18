@@ -14,4 +14,8 @@ router.get('/single-deposit/:id', AdminUser.getSingleDepositDetails)
 router.get('/user', AdminUser.getDeposits)
 router.put('/confirm-deposit/:id', AdminUser.confirmDeposits)
 
+router.get('/withdrawal', AdminUser.getWithDrawals)
+router.get('/single-withdrawal', AdminUser.getSingleWithDrawal)
+router.get('/update-withdrawal', AdminUser.updateWithdrawal)
+
 module.exports = router 
