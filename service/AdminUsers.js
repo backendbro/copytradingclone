@@ -120,12 +120,14 @@ class AdminUser  {
     }
 
     async deleteDeposits(req,res){
-        const {id} = req.params 
+        const {id} = req.body 
         const depositExist = await Deposit.findById(id)
         if(!depositExist){
             return res.status(200).json({message:"DEPOSIT DELETED"})
         }
         
+        const deletedDeposit = await Deposit.deleteOne({id})
+        res.status(200).json({message:"DEPOSIT DELETED", deletedDeposit})
     }
 
     async getWithDrawals(req,res){

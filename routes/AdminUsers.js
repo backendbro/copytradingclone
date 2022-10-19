@@ -17,6 +17,7 @@ router.post('/', AdminUser.sendEmail)
 router.get('/single-deposit/', AdminUser.getSingleDepositDetails)
 router.get('/get-all', AdminUser.getDeposits)  
 router.put('/confirm-deposit/', AdminUser.confirmDeposits)
+router.delete('/delete-deposit', AdminUser.deleteDeposits)
 
 
 
