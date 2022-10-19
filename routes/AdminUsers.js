@@ -14,9 +14,9 @@ router.delete('/delete-user', AdminUser.deleteUser)
 router.get('/profile/', AdminUser.profile)
 router.post('/', AdminUser.sendEmail)
 
-router.get('/single-deposit/:id', AdminUser.getSingleDepositDetails)
-router.get('/user', AdminUser.getDeposits)  
-router.put('/confirm-deposit/:id', AdminUser.confirmDeposits)
+router.get('/single-deposit/', AdminUser.getSingleDepositDetails)
+router.get('/get-all', AdminUser.getDeposits)  
+router.put('/confirm-deposit/', AdminUser.confirmDeposits)
 
 
 

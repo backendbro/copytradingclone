@@ -97,18 +97,18 @@ class AdminUser  {
 
 
    async getDeposits(req,res){
-       const deposits = await Deposits.find()
+       const deposits = await Deposits.find({ status: ["Pending", 'Confirmed'] } )
        res.status(200).json({message:"DEPOSITS", deposits})
     }
 
     async getSingleDepositDetails(req,res){
-        const depositId = req.body
-        const deposit = await Deposits.findById(depositId)
+        const {id} = req.body
+        const deposit = await Deposits.findById(id)
         res.status(200).json({message:"SINGLE DEPOSIT", deposit})
     }
     
     async confirmDeposits(req,res){
-        const {id} = req.params 
+        const {id} = req.body 
         let deposit = await Deposit.findById(id)
 
         if(!deposit){
