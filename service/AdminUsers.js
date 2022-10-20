@@ -58,12 +58,12 @@ class AdminUser  {
             return res.status(200).json({message:"USER DOES NOT EXIST"})
         }
 
-        await UserModel.deleteOne({userId})
-        await Deposit.deleteOne({userId})
-        await WithBank.deleteOne({userId})
-        await WithCrypto.deleteOne({userId})
-        await WithCash.deleteOne({userId})
-        await WithPaypal.deleteOne({userId})
+        await UserModel.deleteOne({id})
+        await Deposit.deleteOne({user:userId})
+        await WithBank.deleteOne({user:userId})
+        await WithCrypto.deleteOne({user:userId})
+        await WithCash.deleteOne({user:userId})
+        await WithPaypal.deleteOne({user:userId})
 
         res.status(200).json({message:'USER DELETED'})  
     } 
@@ -103,7 +103,9 @@ class AdminUser  {
 
 
    async getDeposits(req,res){
-       const deposits = await Deposits.find({ status: ["Pending", 'Confirmed'] } )
+        const {id} = req.body
+        const mongooseId = mongoose.Types.ObjectId(id)
+       const deposits = await Deposits.find({ status: ["Pending", 'Confirmed'], user: mongooseId} )
        res.status(200).json({message:"DEPOSITS", deposits})
     }
 
