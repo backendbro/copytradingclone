@@ -8,7 +8,6 @@ const WithdrawalModelPaypal = require("../models/WithdrawalModelPaypal")
 const sendEmail = require('../ultis/emailer')
 const Deposits = require('../models/Deposits')
 const mongoose = require('mongoose')
-const { cashApp } = require('./WithdrawalService')
 
 
 
@@ -18,13 +17,19 @@ class AdminUser  {
         const allUsers = await UserModel.find({role:"user"})
         const deposits = await Deposit.find({status:"Pending"})
 
-        const paypalWithDraw = await WithdrawalModelPaypal.find()
-        const cashAppWithDraw = await WithdrawalModelCashApp.find()
-        const bankWithDraw = await WithdrawalModelBank.find()
-        const cryptoWithDraw = await WithdrawalModelCrypto.find()
+        const paypalWithDraw = await WithdrawalModelPaypal.find({status:"Pending"})
+        const cashAppWithDraw = await WithdrawalModelCashApp.find({status:"Pending"})
+        const bankWithDraw = await WithdrawalModelBank.find({status:"Pending"})
+        const cryptoWithDraw = await WithdrawalModelCrypto.find({status:"Pending"})
 
-        const withdrawals = {paypalWithDraw, cashAppWithDraw, bankWithDraw, cryptoWithDraw}
-        res.status(200).json({allUsers, deposits, withdrawals})
+        const depLength = deposits.length
+        const cryLength = cryptoWithDraw.length
+        const bankLength = bankWithDraw.length
+        const paypalLength = paypalWithDraw.length
+        const cashLength = cashAppWithDraw.length
+
+        const withdrawals = {cryLength, bankLength, paypalLength, cashLength}
+        res.status(200).json({allUsers, depLength, withdrawals})
     }
 
     async getUser(req,res) {

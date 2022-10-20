@@ -6,34 +6,56 @@ const WithdrawalModelCashApp = require("../models/WithdrawalModelCashApp")
 const WithdrawalModelCrypto = require("../models/WithdrawalModelCrypto")
 const WithdrawalModelPaypal = require("../models/WithdrawalModelPaypal")
 
+async function checkBalance(Model, id){
+    let balance = 0;
+    const mongooseId = mongoose.Types.ObjectId(id)
+    const checkIfDeposit = await Model.find({mongooseId})
+    checkIfDeposit.forEach(deposit => {
+        if(deposit.status == 'Pending'){
+            balance = balance + parseInt(deposit.amount)    
+        }
+    })
+    return balance;
+}
+
 class WithDrawalService {
-    
+
     async bank(req,res){
         const {id} = req.user
-        const mongooseId = mongoose.Types.ObjectId(id)
         const user = await UserModel.findById(id)
+        const {amount} = req.body
+        const amountInNum = parseInt(amount)
+
         if(!user){
             return res.status(404).json({nessage: "USER DOES"})
         }
-        req.body.user = id
-        const checkIfDeposit = await Deposits.find({mongooseId})
-        // const checkBalance = checkIfDeposit.forEach(deposit () => {
-        //     if(deposit.status){}
-        // })
+       
+        const balance = await checkBalance(Deposits, id)
+        if(balance < amountInNum) {
+            return res.status(404).json({message:"INSUFFICIENT FUNDS"})
+        }
 
-        console.log(checkIfDeposit)
-        return
+        req.body.user = id
         const withDrawalDetails = await WithdrawalModelBank.create(req.body)
         res.status(200).json({withDrawalDetails})
     }   
 
     async crypto(req,res) {
-        const userId = req.user.id
-        const user = await UserModel.findById(userId)
+        const {id} = req.user
+        const user = await UserModel.findById(id)
+        const {amount} = req.body
+        const amountInNum = parseInt(amount)
+
         if(!user){
             return res.status(404).json({nessage: "USER DOES"})
         }
-        req.body.user = userId
+       
+        const balance = await checkBalance(Deposits, id)
+        if(balance < amountInNum) {
+            return res.status(404).json({message:"INSUFFICIENT FUNDS"})
+        }
+
+        req.body.user = id
         const withDrawalDetails = await WithdrawalModelCrypto.create(req.body)
         res.status(200).json({withDrawalDetails})
     }
