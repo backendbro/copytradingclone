@@ -9,7 +9,7 @@ router.get('/single-withdrawal', AdminUser.getSingleWithDrawal)
 router.put('/update-withdrawal', AdminUser.updateWithdrawal)
 
 router.get('/all-users', AdminUser.getUsers)
-router.get('/single-user', AdminUser.getUser)
+router.post('/single-user', AdminUser.getUser)
 router.delete('/delete-user', AdminUser.deleteUser)
 router.post('/', AdminUser.sendEmail)
 

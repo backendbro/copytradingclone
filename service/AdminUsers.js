@@ -65,7 +65,7 @@ class AdminUser  {
         await WithCash.deleteOne({userId})
         await WithPaypal.deleteOne({userId})
 
-        res.status(200).json({message:'USER DELETED'})
+        res.status(200).json({message:'USER DELETED'})  
     } 
 
 
