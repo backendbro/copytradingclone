@@ -11,7 +11,6 @@ router.put('/update-withdrawal', AdminUser.updateWithdrawal)
 router.get('/all-users', AdminUser.getUsers)
 router.get('/single-user', AdminUser.getUser)
 router.delete('/delete-user', AdminUser.deleteUser)
-router.get('/profile/', AdminUser.profile)
 router.post('/', AdminUser.sendEmail)
 
 router.get('/single-deposit/', AdminUser.getSingleDepositDetails)

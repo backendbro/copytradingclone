@@ -39,17 +39,20 @@ class AdminUser  {
 
     async getUser(req,res) {
         const {id} = req.body
+        const mongooseId = mongoose.Types.ObjectId(id)
         const user = await UserModel.findById(id)
         if(!user){
             return res.status(200).json({message:"USER DOES NOT EXIST"})
         }
     
         const singleUser = await UserModel.findById(id)
-        res.status(200).json({singleUser})
+        const deposits = await Deposits.findOne({user:mongooseId})
+        res.status(200).json({singleUser, deposits})
     }
 
     async deleteUser (req,res) {
-        const {userId} = req.body
+        const {id} = req.body
+        const userId = mongoose.Types.ObjectId(id)
         const user = await UserModel.findById(userId)
         if(!user){
             return res.status(200).json({message:"USER DOES NOT EXIST"})
@@ -65,22 +68,6 @@ class AdminUser  {
         res.status(200).json({message:'USER DELETED'})
     } 
 
-    async profile(req,res) {
-        const {userId} = req.body
-        const userExist = await UserModel.findById(userId)
-        if(!userExist){
-            return res.status(404).json({message:"USER DOES NOT EXIST"})
-        }
-        
-       const user = await UserModel.findById(userId)
-       
-       const deposits = await Deposits.findById(userId)
-       const bank = await WithBank.find({_id:userId}, {approved:"false"})
-       const cashApp = await WithCash.find({_id:userId}, {approved:"false"}) 
-       const crypto = await WithCrypto.find({_id:userId}, {approved:"false"})
-       const paypal = await WithPaypal.find({_id:userId}, {approved:"false"})
-
-       res.status(200).json({ message:"PROFILE", user, deposits, bank,cashApp,crypto, paypal }) }
 
     async openTrade (req,res) {
         const user = req.user.id

@@ -61,38 +61,58 @@ class WithDrawalService {
     }
 
     async cashApp(req,res) {
-        const userId = req.user.id
-        const user = await UserModel.findById(userId)
+        const {id} = req.user
+        const user = await UserModel.findById(id)
+        const {amount} = req.body
+        const amountInNum = parseInt(amount)
+
         if(!user){
             return res.status(404).json({nessage: "USER DOES"})
         }
-        req.body.user = userId
+       
+        const balance = await checkBalance(Deposits, id)
+        if(balance < amountInNum) {
+            return res.status(404).json({message:"INSUFFICIENT FUNDS"})
+        }
+
+        req.body.user = id
         const withDrawalDetails = await WithdrawalModelCashApp.create(req.body)
         res.status(200).json({withDrawalDetails})
     }
 
 
     async paypal(req,res){
-        const userId = req.user.id
-        const user = await UserModel.findById(userId)
+        const {id} = req.user
+        const user = await UserModel.findById(id)
+        const {amount} = req.body
+        const amountInNum = parseInt(amount)
+
         if(!user){
             return res.status(404).json({nessage: "USER DOES"})
         }
-        req.body.user = userId
+       
+        const balance = await checkBalance(Deposits, id)
+        if(balance < amountInNum) {
+            return res.status(404).json({message:"INSUFFICIENT FUNDS"})
+        }
+
+        req.body.user = id
         const withDrawalDetails = await WithdrawalModelPaypal.create(req.body)
         res.status(200).json({withDrawalDetails})
     }
 
     async getWithDrawals(req,res){
+        
         const user = await UserModel.findById(req.user.id)
+        const mongooseId = mongoose.Types.ObjectId(req.user.id)
         if(!user){
-            return res.status(404).json({nessage: "USER DOES"})
+            return res.status(404).json({nessage: "USER DOES NOT EXISTS"})
         }
         
-        const paypalWithDraw = await WithdrawalModelPaypal.find()
-        const cashAppWithDraw = await WithdrawalModelCashApp.find()
-        const bankWithDraw = await WithdrawalModelBank.find()
-        const cryptoWithDraw = await WithdrawalModelCrypto.find()
+        const paypalWithDraw = await WithdrawalModelPaypal.find({user: mongooseId})
+        const cashAppWithDraw = await WithdrawalModelCashApp.find({user: mongooseId})
+        const bankWithDraw = await WithdrawalModelBank.find({user: mongooseId})
+        const cryptoWithDraw = await WithdrawalModelCrypto.find({user: mongooseId})
 
         res.status(200).json({ paypalWithDraw, cashAppWithDraw, bankWithDraw, cryptoWithDraw})
     
