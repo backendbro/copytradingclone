@@ -17,19 +17,24 @@ class AdminUser  {
         const allUsers = await UserModel.find({role:"user"})
         const deposits = await Deposit.find({status:"Pending"})
 
-        const paypalWithDraw = await WithdrawalModelPaypal.find({status:"Pending"})
-        const cashAppWithDraw = await WithdrawalModelCashApp.find({status:"Pending"})
-        const bankWithDraw = await WithdrawalModelBank.find({status:"Pending"})
-        const cryptoWithDraw = await WithdrawalModelCrypto.find({status:"Pending"})
+        // const userEntity = []
 
-        const depLength = deposits.length
-        const cryLength = cryptoWithDraw.length
-        const bankLength = bankWithDraw.length
-        const paypalLength = paypalWithDraw.length
-        const cashLength = cashAppWithDraw.length
+        // const paypalWithDraw = await WithdrawalModelPaypal.find({status:"Pending"})
+        // const cashAppWithDraw = await WithdrawalModelCashApp.find({status:"Pending"})
+        // const bankWithDraw = await WithdrawalModelBank.find({status:"Pending"})
+        // const cryptoWithDraw = await WithdrawalModelCrypto.find({status:"Pending"})
 
-        const withdrawals = {cryLength, bankLength, paypalLength, cashLength}
-        res.status(200).json({allUsers, depLength, withdrawals})
+        // paypalWithDraw.forEach(paypal => {
+        //     if()
+        // })
+
+        // const depLength = deposits.length
+        // const cryLength = cryptoWithDraw.length
+        // const bankLength = bankWithDraw.length
+        // const paypalLength = paypalWithDraw.length
+        //const cashLength = cashAppWithDraw.length
+
+        res.status(200).json({allUsers})
     }
 
     async getUser(req,res) {
