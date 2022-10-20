@@ -8,6 +8,7 @@ const WithdrawalModelPaypal = require("../models/WithdrawalModelPaypal")
 const sendEmail = require('../ultis/emailer')
 const Deposits = require('../models/Deposits')
 const mongoose = require('mongoose')
+const { cashApp } = require('./WithdrawalService')
 
 
 
@@ -15,17 +16,25 @@ class AdminUser  {
 
     async getUsers(req,res) {
         const allUsers = await UserModel.find({role:"user"})
-        res.status(200).json({allUsers})
+        const deposits = await Deposit.find({status:"Pending"})
+
+        const paypalWithDraw = await WithdrawalModelPaypal.find()
+        const cashAppWithDraw = await WithdrawalModelCashApp.find()
+        const bankWithDraw = await WithdrawalModelBank.find()
+        const cryptoWithDraw = await WithdrawalModelCrypto.find()
+
+        const withdrawals = {paypalWithDraw, cashAppWithDraw, bankWithDraw, cryptoWithDraw}
+        res.status(200).json({allUsers, deposits, withdrawals})
     }
 
     async getUser(req,res) {
-        const {userId} = req.body
-        const user = await UserModel.findById(userId)
+        const {id} = req.body
+        const user = await UserModel.findById(id)
         if(!user){
             return res.status(200).json({message:"USER DOES NOT EXIST"})
         }
     
-        const singleUser = await UserModel.findById(userId)
+        const singleUser = await UserModel.findById(id)
         res.status(200).json({singleUser})
     }
 
@@ -172,10 +181,12 @@ class AdminUser  {
 
     async updateWithdrawal(req,res){
         const {id} = req.body
-        
+
         const paypalWithDraw = await WithdrawalModelPaypal.findById(id)
         if(paypalWithDraw){
         const update = await WithdrawalModelPaypal.findByIdAndUpdate(id, req.body, {new:true})
+        const minusAmountDeposit = await Deposit.findOne({user: update.user})
+        console.log(minusAmountDeposit)
         res.status(200).json({update})
         }
 

@@ -8,7 +8,7 @@ router.get('/withdrawal', AdminUser.getWithDrawals)
 router.get('/single-withdrawal', AdminUser.getSingleWithDrawal)
 router.put('/update-withdrawal', AdminUser.updateWithdrawal)
 
-router.get('/', AdminUser.getUsers)
+router.get('/all-users', AdminUser.getUsers)
 router.get('/single-user', AdminUser.getUser)
 router.delete('/delete-user', AdminUser.deleteUser)
 router.get('/profile/', AdminUser.profile)

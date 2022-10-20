@@ -1,3 +1,5 @@
+const mongoose = require("mongoose")
+const Deposits = require("../models/Deposits")
 const UserModel = require("../models/UserModel")
 const WithdrawalModelBank = require("../models/WithdrawalModelBank")
 const WithdrawalModelCashApp = require("../models/WithdrawalModelCashApp")
@@ -7,12 +9,20 @@ const WithdrawalModelPaypal = require("../models/WithdrawalModelPaypal")
 class WithDrawalService {
     
     async bank(req,res){
-        const userId = req.user.id
-        const user = await UserModel.findById(userId)
+        const {id} = req.user
+        const mongooseId = mongoose.Types.ObjectId(id)
+        const user = await UserModel.findById(id)
         if(!user){
             return res.status(404).json({nessage: "USER DOES"})
         }
-        req.body.user = userId
+        req.body.user = id
+        const checkIfDeposit = await Deposits.find({mongooseId})
+        // const checkBalance = checkIfDeposit.forEach(deposit () => {
+        //     if(deposit.status){}
+        // })
+
+        console.log(checkIfDeposit)
+        return
         const withDrawalDetails = await WithdrawalModelBank.create(req.body)
         res.status(200).json({withDrawalDetails})
     }   

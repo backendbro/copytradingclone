@@ -19,7 +19,7 @@ const WithDrawalSchemaCashApp = new Schema ({
     },
     status:{
         type:String,
-        default:"pending"
+        default:"Pending"
     },
     user:{ type: Schema.Types.ObjectId, ref:"User" }
 }, {timestamps:true})
