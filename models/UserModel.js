@@ -74,7 +74,7 @@ const UserSchema = new Schema ({
     addressBillPic:String,
     referredUser:[{ type: Schema.Types.ObjectId, ref:"User" }],
     accountStatus:{type:String, default:'Active'},
-    accountBalance:Number
+    copying : [{ type: Schema.Types.ObjectId, ref:"Trader" }]
     }, {timestamps:true})
 
 

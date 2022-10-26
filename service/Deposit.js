@@ -2,20 +2,10 @@ const Deposit = require('../models/Deposits')
 const UserModel = require('../models/UserModel')
 const uploadSingleFile = require('../config/cloudinary')
 
-
-
 class Deposits {
 
     async getDeposits (req,res) {
-        const start = Date.now()
-        let deposits;
-        deposits = await Deposit.find()
-        deposits.forEach(async deposit  => {
-            if(new Date(deposit.failedStatusDate).getTime() < start){
-              await Deposit.findByIdAndUpdate(deposit.id, {status:"Failed"}, {new:true})
-            }
-        } )
-        
+        let deposits = await Deposit.find()
         res.status(200).json({message:"DEPOSITS MADE", deposits})
     }
 
@@ -27,10 +17,7 @@ class Deposits {
             return res.status(404).json({user})
         }
         req.body.user = userId
-        const date = new Date()
-        req.body.failedStatusDate = date.setTime(date.getTime() + (2*60*60*1000)); 
     
-
         const deposit = await Deposit.create(req.body)
         res.status(200).json({message:"DEPOSIT MADE", deposit})
     }
@@ -43,13 +30,6 @@ class Deposits {
         if(!user){
             return res.status(404).json({message:"USER NOT FOUND"})
         }
-
-        const start = Date.now()
-        const deposit = await Deposit.findById(depositId)
-       
-        if(new Date(deposit.failedStatusDate).getTime() < start){
-          return res.status(404).json({message:"PAYMENT LINK EXPIRED"})
-          }
 
         if(!req.file){
             return res.status(404).json({message:"PLEASE UPLOAD AN IMAGE"})

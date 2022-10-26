@@ -5,35 +5,31 @@ const WithdrawalModelBank = require("../models/WithdrawalModelBank")
 const WithdrawalModelCashApp = require("../models/WithdrawalModelCashApp")
 const WithdrawalModelCrypto = require("../models/WithdrawalModelCrypto")
 const WithdrawalModelPaypal = require("../models/WithdrawalModelPaypal")
+const AmountPaid = require('../models/AmountPaid')
 
-async function checkBalance(Model, id){
-    let balance = 0;
-    const mongooseId = mongoose.Types.ObjectId(id)
-    const checkIfDeposit = await Model.find({mongooseId})
-    checkIfDeposit.forEach(deposit => {
-        if(deposit.status == 'Pending'){
-            balance = balance + parseInt(deposit.amount)    
-        }
-    })
-    return balance;
-}
+
 
 class WithDrawalService {
 
     async bank(req,res){
+        
         const {id} = req.user
         const user = await UserModel.findById(id)
+        const amountPaid = await AmountPaid.findOne({user})
+
         const {amount} = req.body
         const amountInNum = parseInt(amount)
-
+        
         if(!user){
             return res.status(404).json({nessage: "USER DOES"})
         }
        
-        const balance = await checkBalance(Deposits, id)
+        const balance = amountPaid.balance
+     
         if(balance < amountInNum) {
             return res.status(404).json({message:"INSUFFICIENT FUNDS"})
         }
+        
 
         req.body.user = id
         const withDrawalDetails = await WithdrawalModelBank.create(req.body)
@@ -43,6 +39,8 @@ class WithDrawalService {
     async crypto(req,res) {
         const {id} = req.user
         const user = await UserModel.findById(id)
+        const amountPaid = await AmountPaid.findOne({user})
+
         const {amount} = req.body
         const amountInNum = parseInt(amount)
 
@@ -50,7 +48,7 @@ class WithDrawalService {
             return res.status(404).json({nessage: "USER DOES"})
         }
        
-        const balance = await checkBalance(Deposits, id)
+        const balance = amountPaid.balance
         if(balance < amountInNum) {
             return res.status(404).json({message:"INSUFFICIENT FUNDS"})
         }
@@ -63,6 +61,8 @@ class WithDrawalService {
     async cashApp(req,res) {
         const {id} = req.user
         const user = await UserModel.findById(id)
+        const amountPaid = await AmountPaid.findOne({user})
+
         const {amount} = req.body
         const amountInNum = parseInt(amount)
 
@@ -70,7 +70,7 @@ class WithDrawalService {
             return res.status(404).json({nessage: "USER DOES"})
         }
        
-        const balance = await checkBalance(Deposits, id)
+        const balance = amountPaid.balance
         if(balance < amountInNum) {
             return res.status(404).json({message:"INSUFFICIENT FUNDS"})
         }
@@ -84,6 +84,8 @@ class WithDrawalService {
     async paypal(req,res){
         const {id} = req.user
         const user = await UserModel.findById(id)
+        const amountPaid = await AmountPaid.findOne({user})
+
         const {amount} = req.body
         const amountInNum = parseInt(amount)
 
@@ -91,7 +93,8 @@ class WithDrawalService {
             return res.status(404).json({nessage: "USER DOES"})
         }
        
-        const balance = await checkBalance(Deposits, id)
+        const balance = amountPaid.balance
+        
         if(balance < amountInNum) {
             return res.status(404).json({message:"INSUFFICIENT FUNDS"})
         }
