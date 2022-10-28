@@ -45,7 +45,7 @@ const {
 
 
   const info = {
-    from: "chikanzube03@gmail.com",
+    from: "support@copytradingoptions.live",
     to,
     subject,
     html:template
