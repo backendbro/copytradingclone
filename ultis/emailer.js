@@ -9,12 +9,12 @@ const {
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    host: 'mail.privateemail.com',
+    host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-      user:"support@copytradingoptions.live", 
-      pass: "yanshwarrior123@#$5"
+      user:"chikanzube03@gmail.com", 
+      pass: "ciplxwiqwgvkixru"
     }
   });
 
@@ -45,7 +45,7 @@ const {
 
 
   const info = {
-    from: "support@copytradingoptions.live",
+    from: "chikanzube03@gmail.com",
     to,
     subject,
     html:template
