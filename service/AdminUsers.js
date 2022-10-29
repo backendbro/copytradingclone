@@ -81,14 +81,6 @@ class AdminUser  {
         res.status(200).json({message:'USER DELETED'})  
     } 
 
-    async openTrade (req,res) {
-        const user = req.user.id
-    }
-
-    async closeTrade(req,res) {
-        const user = req.user.id
-    }
-
     async summary (req,res) {
         const user = req.user.id
     }
@@ -167,6 +159,8 @@ class AdminUser  {
         const deletedDeposit = await Deposit.deleteOne({id})
         res.status(200).json({message:"DEPOSIT DELETED", deletedDeposit})
     }
+
+    
 
     async getWithDrawals(req,res){
         const {id} = req.body
@@ -312,6 +306,8 @@ class AdminUser  {
          }
         }
     }
+
+   
 }
 
 module.exports = new AdminUser()

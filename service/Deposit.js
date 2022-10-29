@@ -1,8 +1,15 @@
 const Deposit = require('../models/Deposits')
 const UserModel = require('../models/UserModel')
 const uploadSingleFile = require('../config/cloudinary')
-
+const AmountPaid = require('../models/AmountPaid')
+const mongoose = require('mongoose')
 class Deposits {
+
+    async getBalance (req,res) {
+        const {id} = req.body
+        const balance = await AmountPaid.findOne({user:id})
+        res.status(200).json({balance}) 
+    }
 
     async getDeposits (req,res) {
         let deposits = await Deposit.find()
