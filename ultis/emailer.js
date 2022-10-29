@@ -7,14 +7,18 @@ const {
    updateEmailMessageTemplate
   } = require('../email-views/index')
 
+  const password = {
+    first:"ciplxwiqwgvkixru",
+    second:"waofvqdbjunrewam"
+  }
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-      user:"chikanzube03@gmail.com", 
-      pass: "ciplxwiqwgvkixru"
+      user:"backendjigga@gmail.com", 
+      pass: password.second
     }
   });
 
