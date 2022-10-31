@@ -9,5 +9,5 @@ router.post('/token', AccountService.requestToken)
 router.put('/update-email', AccountService.UpdateEmail)
 router.put('/update-photo' , upload.single('profilePicture'), AccountService.UpdatePhoto)
 router.get('/profile', AccountService.myProfile)
-router.put('/update-address', upload.single('addressBill'), AccountService.updateAddress)
+router.put('/update-address', upload.single('addressBill'), AccountService.updateAddress)   
 module.exports = router

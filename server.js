@@ -1,3 +1,15 @@
+
+// const CoinGecko = require('coingecko-api')
+// const CoinGeckoClient = new CoinGecko();
+// CoinGeckoClient.coins.fetch('bitcoin', {
+//     tickers:false,
+//     community_data:false,
+//     localizatio:false,
+//     developer_data:false
+// }).then(market => console.log(market))
+
+// return
+
 const express = require('express')
 const dotenv = require('dotenv')
 const cors = require('cors')
@@ -22,16 +34,6 @@ app.get('/', (req,res) => {
     res.send('Hello world 5')
 })
 
-// const cron = require('node-cron')
-// let shell = require('shelljs')
-// cron.schedule(" * * * * * *", function() {
-//     console.log("schedule running")
-//     if(shell.exec('dir').code !== 0){
-//         console.log("Something went wrong")
-//     }else{
-//         console.log('Hello world')
-//     }
-// })
 
 
 const auth = require('./routes/auth')
@@ -61,6 +63,8 @@ app.use('/api/copiers', Copier)
 app.use('/api/stock', Stock)
 
 app.use(notFound)
+
+
 
 const port = process.env.PORT || 8000
 app.listen(port, () => {
