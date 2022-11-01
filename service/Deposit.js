@@ -9,7 +9,7 @@ class Deposits {
         const {id} = req.params
         const balance = await AmountPaid.findOne({user:id})
         if(!balance){
-            return res.status(404).json({message:"NO BALANCE FOUND"})
+            return res.status(400).json({message:"NO BALANCE FOUND"})
         }
         res.status(200).json({balance}) 
     }
