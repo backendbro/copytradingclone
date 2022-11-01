@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 class Deposits {
 
     async getBalance (req,res) {
-        const {id} = req.params
+        const {id} = req.body
         const balance = await AmountPaid.findOne({user:id})
         if(!balance){
             return res.status(404).json({message:"NO BALANCE FOUND"})
