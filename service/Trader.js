@@ -5,65 +5,23 @@ const uploadSingleFile = require('../config/cloudinary')
 class TraderService {
 
     async getTraders (req,res) {
-         const userId = req.user.id
-        let user = await UserModel.findById(userId)
-        if(!user){
-            return res.status(404).json({user})
-        }
-        
-        if(user.role !== req.user.role){
-            return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
-       }
-
         const traders = await Trader.find()
         res.status(200).json({traders})
     }
 
     async getTrader(req,res) {
-        const userId = req.user.id
-        const {id} = req.params
-         let user = await UserModel.findById(userId)
-        if(!user){
-            return res.status(404).json({user})
-        }
-
-        if(user.role !== req.user.role){
-            return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
-       }
-
+        const {id} = req.body
         const trader = await Trader.findById(id)
         res.status(200).json({trader})
     }
 
     async createTrader(req,res){
-         const userId = req.user.id
-        let user = await UserModel.findById(userId)
-        if(!user){
-            return res.status(404).json({user})
-        }
-
-        if(user.role !== req.user.role){
-            return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
-       }
-    
         const trader = await Trader.create(req.body)
         res.status(200).json({message:"TRADER CREATED", trader})
- 
     }
 
 
    async searchTrader(req,res) {    
-        const userId = req.user.id
-
-        let user = await UserModel.findById(userId)
-        if(!user){
-            return res.status(404).json({user})
-        }
-    
-        if(user.role !== req.user.role){
-            return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
-       }
-    
        let queryString = req.query;
        if(req.query.name !== undefined) { 
            queryString = {name: { $regex: req.query.name, $options: "i" }}
@@ -74,16 +32,7 @@ class TraderService {
     }
 
     async updateTrader(req,res) {
-         const userId = req.user.id
-         const {id} = req.params
-        let user = await UserModel.findById(userId)
-        if(!user){
-            return res.status(404).json({user})
-        }
-    
-        if(user.role !== req.user.role){
-            return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
-       }
+        const {id} = req.body
 
        const traderExists = await Trader.findById(id)
        if(!traderExists){
@@ -110,28 +59,6 @@ class TraderService {
     
     }
 
-
-    async getCopiers (req,res) {
-         const userId = req.user.id
-        let user = await UserModel.findById(userId)
-        if(!user){
-            return res.status(404).json({user})
-        }
-        
-        const copiers = await Copiers.find()
-        res.status(200).json({message:"COPIERS", copiers})
-    }
-
-    async declineCopiers (req,res) {
-        const userId = req.user.id
-       let user = await UserModel.findById(userId)
-       if(!user){
-           return res.status(404).json({user})
-       }
-       
-    res.status(200).json({message:"COPYING DECLINED"})
-       
-   }
 
 }
 

@@ -1,3 +1,6 @@
+
+
+
 const UserModel = require('../models/UserModel')
 const AdminUsers = require('../models/AdminUsers')
 const Deposit = require('../models/Deposits')
@@ -11,17 +14,6 @@ const mongoose = require('mongoose')
 const AmountPaid = require('../models/AmountPaid')
 
 
-async function checkBalance(Model, id){
-    let balance = 0;
-    const mongooseId = mongoose.Types.ObjectId(id)
-    const checkIfDeposit = await Model.find({mongooseId, status:"Confirmed"})
-    checkIfDeposit.forEach(deposit => {
-            balance = balance + parseInt(deposit.amount)    
-    })
-    return balance;
-}
-
-
 class AdminUser  {
 
     constructor(){}
@@ -29,24 +21,6 @@ class AdminUser  {
     async getUsers(req,res) {
         const allUsers = await UserModel.find({role:"user"})
         const deposits = await Deposit.find({status:"Pending"})
-
-        // const userEntity = []
-
-        // const paypalWithDraw = await WithdrawalModelPaypal.find({status:"Pending"})
-        // const cashAppWithDraw = await WithdrawalModelCashApp.find({status:"Pending"})
-        // const bankWithDraw = await WithdrawalModelBank.find({status:"Pending"})
-        // const cryptoWithDraw = await WithdrawalModelCrypto.find({status:"Pending"})
-
-        // paypalWithDraw.forEach(paypal => {
-        //     if()
-        // })
-
-        // const depLength = deposits.length
-        // const cryLength = cryptoWithDraw.length
-        // const bankLength = bankWithDraw.length
-        // const paypalLength = paypalWithDraw.length
-        //const cashLength = cashAppWithDraw.length
-
         res.status(200).json({allUsers})
     }
 
@@ -58,9 +32,25 @@ class AdminUser  {
             return res.status(200).json({message:"USER DOES NOT EXIST"})
         }
     
+        const amountPaid = await AmountPaid.findOne({user: mongooseId})
         const singleUser = await UserModel.findById(id)
         const deposits = await Deposits.findOne({user:mongooseId})
-        res.status(200).json({singleUser, deposits})
+        res.status(200).json({singleUser, deposits, amountPaid})
+    }
+
+    async searchUser(req,res) {    
+        let queryString = req.query;
+        if(req.query.name !== undefined) { 
+            queryString = {
+                $or: [
+                    { firstName: { $regex: req.query.name, $options: "i" }},
+                    { lastName: { $regex: req.query.name, $options: "i" }}
+                ]
+            }
+        }
+           
+        const searchedUser = await UserModel.find(queryString)
+        res.status(200).json({searchedUser})
     }
 
     async deleteUser (req,res) {
@@ -77,6 +67,7 @@ class AdminUser  {
         await WithCrypto.deleteOne({user:userId})
         await WithCash.deleteOne({user:userId})
         await WithPaypal.deleteOne({user:userId})
+        await AmountPaid.deleteOne({user: userId})
 
         res.status(200).json({message:'USER DELETED'})  
     } 
@@ -86,21 +77,17 @@ class AdminUser  {
     }
 
     async sendEmail(req,res) {
-        const { subject, description } = req.body
+        const { subject, description, id } = req.body
         
-        const {userId} = req.body
-        const userExist = await UserModel.findById(userId)
-        if(!userExist){
+        const user = await UserModel.findById(id)
+       
+        if(!user){
             return res.status(404).json({message:"USER DOES NOT EXIST"})
         }
 
-        if(userExist.role !== 'admin'){
-            return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
-       }
-
         const firstName = user.firstName
         const email = user.email 
-        
+        console.log(email)
         await sendEmail(email, subject , { firstName,description });
         res.status(200).json({message:"MESSAGE SENT"})
     }
