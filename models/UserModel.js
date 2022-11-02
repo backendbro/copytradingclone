@@ -67,6 +67,10 @@ const UserSchema = new Schema ({
         type:Boolean,
         default:false
     },
+    addressVerification:{
+        type:String
+    },
+    idVerification:String,
     FACode:String,
     FACodeExp:Date,
     frontImageUrl:String,

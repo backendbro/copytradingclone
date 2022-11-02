@@ -19,6 +19,9 @@ router.post('/get-all', AdminUser.getDeposits)
 router.put('/confirm-deposit/', AdminUser.confirmDeposits)
 router.delete('/delete-deposit', AdminUser.deleteDeposits)
 
+router.get('/get-profile', AdminUser.getProfile)
+router.put('/update-profile', AdminUser.updateProfile)
+
 
 
 module.exports = router 

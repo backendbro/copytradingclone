@@ -92,6 +92,32 @@ class AdminUser  {
         res.status(200).json({message:"MESSAGE SENT"})
     }
 
+    async getProfile(req,res) {
+        const {id} = req.body
+        const amountPaid = await AmountPaid.findOne({id})
+        const user = await UserModel.findById(id)
+
+        res.status(200).json({message:"USER PROFILE", amountPaid, user})
+     }
+
+    async updateProfile(req,res) {
+        const {id, balance, idVerification, addressVerification, accountStatus } = req.body
+        let amountPaid = await AmountPaid.findOne({id})
+
+        if(amountPaid){
+            amountPaid = await AmountPaid.findByIdAndUpdate(amountPaid.id, {balance}, {new:true})
+        }
+
+        const user = await UserModel.findByIdAndUpdate(id, {
+            idVerification, 
+            addressVerification, 
+            accountStatus}, 
+            {new:true})
+
+            res.status(200).json({message:"PROFILE UPDATED", amountPaid, user})
+    }
+
+
 
    async getDeposits(req,res){
     const {id} = req.body

@@ -101,7 +101,7 @@ class UserService {
         // console.log(ip)
 
         const {email, password} = req.body 
-        const user = await UserModel.findOne({email}).select("+password")
+        const user = await UserModel.findOne({email, accountStatus:"Active"}).select("+password")
         if(!user){
             return res.status(404).json({message:'USER DOES NOT EXIST'})
         }
