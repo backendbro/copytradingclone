@@ -17,8 +17,8 @@ const {
     port: 465,
     secure: true,
     auth: {
-      user:"backendjigga@gmail.com", 
-      pass: password.second
+      user:"chikanzube03@gmail.com", 
+      pass: password.first
     }
   });
 
