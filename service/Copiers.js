@@ -1,6 +1,5 @@
 const UserModel = require("../models/UserModel")
 const Trader = require('../models/Trader')
-const mongoose = require("mongoose")
 
 class Copiers {
 
@@ -40,6 +39,7 @@ class Copiers {
             return res.status(200).json({copiers: trader.copiers})
         }
     
+        res.status(404).json({message:"SOMETHING WENT WRONG!"})
     }
 
     async declineCopiers (req,res) {

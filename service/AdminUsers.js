@@ -121,13 +121,13 @@ class AdminUser  {
 
    async getDeposits(req,res){
     const {id} = req.body
-    const deposits = await Deposit.find({user:id, status:["Pending", "Confirmed"]})
+    const deposits = await Deposit.find({user:id, status:["Pending", "Confirmed", "Failed"]})
     res.status(200).json({message:"DEPOSITS", deposits})
     }
 
     async getSingleDepositDetails(req,res){
         const {id} = req.body
-        const deposit = await Deposits.findOne({ _id:id, status: ["Pending", 'Confirmed']})
+        const deposit = await Deposits.findOne({ _id:id, status: ["Pending", 'Confirmed', "Failed"]})
         res.status(200).json({message:"SINGLE DEPOSIT", deposit})
     }
     
@@ -181,7 +181,7 @@ class AdminUser  {
         const mongooseId = mongoose.Types.ObjectId(id)
         const user = await UserModel.findById(id)
         if(!user){
-            return res.status(404).json({nessage: "USER DOES"})
+            return res.status(404).json({nessage: "USER DOES NOT EXIST"})
         }
         
         const paypalWithDraw = await WithPaypal.find(mongooseId)
