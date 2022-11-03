@@ -9,7 +9,7 @@ const {
 
   const password = {
     first:"ciplxwiqwgvkixru",
-    second:"waofvqdbjunrewam"
+    second:"egrmqxtmmlpkdvqe"
   }
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
