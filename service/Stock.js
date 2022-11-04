@@ -1,5 +1,6 @@
 const stockTrade = require('../models/Stock')
 const moment = require('moment')
+const AmountPaid = require('../models/AmountPaid')
 
 class Stock {
 
@@ -537,11 +538,15 @@ class Stock {
         const user = req.user.id
     }
 
+
+    
+
     async openTrade(req,res) {
-        const {time} = req.body
+        const {time, userId} = req.body
         const date = Date.now()
         const newDateObj = moment(date).add(time, 'm').toDate();
         
+        req.body.user = userId
         req.body.setTimer =  newDateObj
         req.body.status = "Open"
         const openTrade = await stockTrade.create(req.body)
@@ -549,7 +554,21 @@ class Stock {
     }
 
     async closeTrade(req,res) {
-        const user = req.user.id
+        const {id} = req.body
+        let closeTrade = await stockTrade.findById(id)
+        if(!closeTrade){
+            return res.status(404).json({message:"TRADE DOES NOT EXIST"})
+        }
+
+        let amountPaid = await AmountPaid.findOne({user:closeTrade.user})
+        
+        const balance = amountPaid.balance 
+        const newBalance = parseInt(balance) + parseInt(closeTrade.profit) 
+        
+        amountPaid = await AmountPaid.findByIdAndUpdate(amountPaid.id, {balance:newBalance}, {new:true})
+        closeTrade = await stockTrade.findByIdAndUpdate(id, {status:"Closed", setTimer:undefined})
+
+        res.status(200).json({message:"CLOSED TRADE", amountPaid, closeTrade})
     }
 
 }
