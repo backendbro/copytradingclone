@@ -4,8 +4,8 @@ const {protect, auth} = require('../middlewares/protect-route')
 
 router.use(protect, auth('admin'))
 
-router.get('/withdrawal', AdminUser.getWithDrawals)
-router.get('/single-withdrawal', AdminUser.getSingleWithDrawal)
+router.post('/withdrawal', AdminUser.getWithDrawals)
+router.post('/single-withdrawal', AdminUser.getSingleWithDrawal)
 router.put('/update-withdrawal', AdminUser.updateWithdrawal)
 
 router.get('/all-users', AdminUser.getUsers)
