@@ -3,6 +3,8 @@ const UserModel = require("../models/UserModel")
 const Verified = require('../models/Verified')
 const sendEmail = require('../ultis/emailer.js')
 const {comparePassword} = require('../ultis/jsonwebtoken')
+const Deposit = require('../models/Deposits')
+const AmountPaid = require('../models/AmountPaid')
 
 class UserService {
     async register (req,res) {
@@ -79,15 +81,8 @@ class UserService {
             return res.status(200).json({message:"INVALID TOKEN"})
         }
 
-        const verifiedObj = {
-            user: user.id,
-            email:"Verified"
-        }
-
         user.FACode = undefined
         user.FACodeExp = undefined
-        
-         await Verified.create(verifiedObj)
         
         user.isVerifiedAcct = true  
         await user.save()
@@ -199,6 +194,20 @@ class UserService {
         res.status(200).json({message:"PASSWORD CHANGED", user})
     }
     
+    async getUser(req,res) {
+        const {id} = req.body
+        const mongooseId = mongoose.Types.ObjectId(id)
+        const user = await UserModel.findById(id)
+        if(!user){
+            return res.status(200).json({message:"USER DOES NOT EXIST"})
+        }
+    
+        const amountPaid = await AmountPaid.findOne({user: mongooseId})
+        const singleUser = await UserModel.findById(id)
+        const deposits = await Deposits.findOne({user:mongooseId})
+        res.status(200).json({singleUser, deposits, amountPaid})
+    }
+
 }
 
 
