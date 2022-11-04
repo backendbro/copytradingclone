@@ -195,7 +195,7 @@ class UserService {
     }
     
     async getUser(req,res) {
-        const {id} = req.body
+        const {id} = req.user
         const mongooseId = mongoose.Types.ObjectId(id)
         const user = await UserModel.findById(id)
         if(!user){
