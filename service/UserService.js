@@ -3,7 +3,7 @@ const UserModel = require("../models/UserModel")
 const Verified = require('../models/Verified')
 const sendEmail = require('../ultis/emailer.js')
 const {comparePassword} = require('../ultis/jsonwebtoken')
-const Deposit = require('../models/Deposits')
+const Deposits = require('../models/Deposits')
 const AmountPaid = require('../models/AmountPaid')
 
 class UserService {
