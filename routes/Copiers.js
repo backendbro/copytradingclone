@@ -4,7 +4,7 @@ const {protect, auth} = require('../middlewares/protect-route')
 
 router.use(protect)
 
-router.post('/', auth("user", "admin"), Copiers.getCopiers)
+router.post('/get-copiers', auth("user", "admin"), Copiers.getCopiers)
 router.post('/', auth('user'), Copiers.addCopiers)
 router.put("/", auth('admin') , Copiers.declineCopiers)
 
