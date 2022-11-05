@@ -109,9 +109,10 @@ class UserService {
         } 
 
         const pin = user.send2FACode()
+        console.log(pin)
         await user.save()
         const firstName = user.firstName
-        await sendEmail(email, 'Enter 2FA Code', { firstName, pin });
+//        await sendEmail(email, 'Enter 2FA Code', { firstName, pin });
         
         res.status(200).json({message: 'ENTER PIN'})
     }
