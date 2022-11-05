@@ -18,7 +18,7 @@ const {
     secure: true,
     auth: {
       user:"backendjigga@gmail.com", 
-      pass: password.first
+      pass: password.second
     }
   });
 
