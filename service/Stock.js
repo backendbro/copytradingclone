@@ -538,37 +538,32 @@ class Stock {
         const user = req.user.id
     }
 
-
-    
-
-    async openTrade(req,res) {
-        const {time, userId} = req.body
+    async simulateTrade(req,res) {
+        const {time, id} = req.body
         const date = Date.now()
         const newDateObj = moment(date).add(time, 'm').toDate();
         
-        req.body.user = userId
+        req.body.user = id 
         req.body.setTimer =  newDateObj
-        req.body.status = "Open"
-        const openTrade = await stockTrade.create(req.body)
-        res.status(200).json({message:"TRADE OPENED", openTrade})
-    }
-
-    async closeTrade(req,res) {
-        const {id} = req.body
-        let closeTrade = await stockTrade.findById(id)
-        if(!closeTrade){
-            return res.status(404).json({message:"TRADE DOES NOT EXIST"})
-        }
-
-        let amountPaid = await AmountPaid.findOne({user:closeTrade.user})
+        
+        let amountPaid = await AmountPaid.findOne({user:id})
         
         const balance = amountPaid.balance 
         const newBalance = parseInt(balance) + parseInt(closeTrade.profit) 
-        
         amountPaid = await AmountPaid.findByIdAndUpdate(amountPaid.id, {balance:newBalance}, {new:true})
-        closeTrade = await stockTrade.findByIdAndUpdate(id, {status:"Closed", setTimer:undefined})
+        
+        const trade = await stockTrade.create(req.body)
+        res.status(200).json({amountPaid, trade})
+    }
 
-        res.status(200).json({message:"CLOSED TRADE", amountPaid, closeTrade})
+    async getOpenTradeV1 (req,res) {
+        const openTrade = await stockTrade.find({ setTimer:{$gt: Date.now()} })
+        res.status(200).json({openTrade})
+    }
+
+    async getCloseTradeV2(req,res) {
+        const closeTrade =  await stockTrade.find({status:"Close" })
+        res.status(200).json({closeTrade})
     }
 
 }

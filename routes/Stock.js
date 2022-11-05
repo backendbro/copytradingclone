@@ -8,7 +8,8 @@ router.get('/currency', auth('user', 'admin'), Stock.getCurrencies)
 router.get('/crypto', auth('user', 'admin') ,Stock.getCrypto)
 router.get('/stock', auth('user', 'admin'), Stock.getStocks)
 
-router.post('/open-trade', auth('admin') ,Stock.openTrade)
-router.post('/close-trade', auth('admin'), Stock.closeTrade)
+router.post('/simulate-trade', auth('admin') , Stock.simulateTrade)
+router.post('/open-trade', auth("user",'admin'), Stock.getCloseTradeV2)
+router.post('/close-trade', auth("user",'admin'), Stock.getOpenTradeV1)
 
 module.exports = router
