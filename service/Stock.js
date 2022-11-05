@@ -6,7 +6,6 @@ class Stock {
 
     async getCurrencies(req,res) {
         const currency = {
-            Currency:{
                 AUD_CAD:{
                     id:1,
                     name:" AUD/CAD",
@@ -268,14 +267,14 @@ class Stock {
                         max:163919.42 
                     }
                 }
-            }
+            
         
         }
         res.status(200).json({message:"Currency", currency})
     }
 
     async getCrypto(req,res) {
-        const crypto = {  Crypto: {
+        const crypto = { 
             Aave: {
                 id:1,
                 name:"Aave",
@@ -528,7 +527,7 @@ class Stock {
                     max:63754.82 
                 }
             }
-        }
+        
         }
         res.status(200).json({message:"CRYPTO", crypto})
     }
@@ -536,7 +535,6 @@ class Stock {
 
     async getStocks(req,res) {
         const stocks = {
-            Stocks : {
                 Apple:{
                     id:1,
                     name:"AAPL",
@@ -961,8 +959,6 @@ class Stock {
                     }
                 }
             }
-        
-        }
         res.status(200).json({message:"Stocks", stocks})
     }
 
