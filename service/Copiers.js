@@ -24,6 +24,12 @@ class Copiers {
         res.status(200).json({message:"COPIED", updatedUser, updatedTrader})
     }
 
+    async getUserCopiers(req,res) {
+        const {userArray} = req.body
+        const copyingUser = []
+        //userArray.forEach()
+    }
+
     async getCopiers (req,res) {
         const {id} = req.body 
         const user = await UserModel.findById(id)
