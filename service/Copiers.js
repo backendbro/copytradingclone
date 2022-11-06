@@ -7,6 +7,7 @@ class Copiers {
         const { traderId, userId } = req.body 
         
         const user = req.user.copying.includes(traderId)
+        
         const trader = await Trader.findById(traderId)
         
         let targetTrader;
@@ -16,8 +17,8 @@ class Copiers {
             }
         })
 
-        const options =  user & trader ? "$pull" : '$addToSet'
-       
+        const options =  user && trader ? "$pull" : '$addToSet'
+        console.log(options)
         const updatedUser = await UserModel.findByIdAndUpdate(userId, {[options]: {copying: traderId}}, {new:true})
         const updatedTrader = await Trader.findByIdAndUpdate(traderId, {[options]:{ copiers: userId}}, {new:true})
 
@@ -64,7 +65,7 @@ class Copiers {
         })
        
         
-        const options =  targetUser & targetTrader ? "$pull" : '$addToSet'
+        const options =  targetUser && targetTrader ? "$pull" : '$addToSet'
        
         const updatedUser = await UserModel.findByIdAndUpdate(userId, {[options]: {copying: traderId}}, {new:true})
         const updatedTrader = await Trader.findByIdAndUpdate(traderId, {[options]:{ copiers: userId}}, {new:true})
