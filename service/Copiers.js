@@ -6,7 +6,14 @@ class Copiers {
     async addCopiers (req,res) {
         const { traderId, userId } = req.body 
 
+        const user = await UserModel.findById(userId)
+        const trader = await Trader.findById(traderId)
+        if(!user && !trader){
+            return res.status(404).json({message:"TRADER OR USER DOES NOT EXIST"})
+        }
+
         const options =   '$addToSet'
+
         const updatedUser = await UserModel.findByIdAndUpdate(userId, {[options]: {copying: traderId}}, {new:true})
         const updatedTrader = await Trader.findByIdAndUpdate(traderId, {[options]:{ copiers: userId}}, {new:true})
 
