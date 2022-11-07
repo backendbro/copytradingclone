@@ -12,7 +12,7 @@ class Copiers {
        
         if(user && trader){ 
             const updatedUser = await UserModel.findByIdAndUpdate(userId, {[options]: {copying: traderId}}, {new:true})
-            const updatedTrader = await Trader.findByIdAndUpdate(traderId, {[options]:{ copiers: userId}}, {new:true})
+            const updatedTrader = await Trader.findByIdAndUpdate(traderId, {[options]:{ copiers: userId, pendingRequests: userId}}, {new:true})
     
             return res.status(200).json({message:"COPIED", updatedUser, updatedTrader})
         }
@@ -94,7 +94,7 @@ class Copiers {
         const options =  targetUser && targetTrader ? "$pull" : '$addToSet'
        
         const updatedUser = await UserModel.findByIdAndUpdate(userId, {[options]: {copying: traderId}}, {new:true})
-        const updatedTrader = await Trader.findByIdAndUpdate(traderId, {[options]:{ copiers: userId}}, {new:true})
+        const updatedTrader = await Trader.findByIdAndUpdate(traderId, {[options]:{ copiers: userId, pendingRequests: userId}}, {new:true})
 
         res.status(200).json({message:"REQUEST DECLINED", updatedUser, updatedTrader})
     
