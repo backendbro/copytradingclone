@@ -8,7 +8,7 @@ class Copiers {
 
         const user = await UserModel.findById(userId)
         const trader = await Trader.findById(traderId)
-        if(!user && !trader){
+        if(!user || !trader){
             return res.status(404).json({message:"TRADER OR USER DOES NOT EXIST"})
         }
 
