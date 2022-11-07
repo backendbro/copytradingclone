@@ -5,20 +5,8 @@ class Copiers {
 
     async addCopiers (req,res) {
         const { traderId, userId } = req.body 
-        
-        const user = req.user.copying.includes(traderId)
-        
-        const trader = await Trader.findById(traderId)
-        
-        let targetTrader;
-        trader.copiers.forEach(copy => {
-            if(copy == userId){
-                targetTrader = true
-            }
-        })
 
-        const options =  user && trader ? "$pull" : '$addToSet'
-        console.log(options)
+        const options =   '$addToSet'
         const updatedUser = await UserModel.findByIdAndUpdate(userId, {[options]: {copying: traderId}}, {new:true})
         const updatedTrader = await Trader.findByIdAndUpdate(traderId, {[options]:{ copiers: userId}}, {new:true})
 
