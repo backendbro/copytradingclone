@@ -13,6 +13,37 @@ class Copiers {
         res.status(200).json({message:"COPIED", updatedUser, updatedTrader})
     }
 
+    async removeCopier(req,res) {
+        const {traderId, userId} = req.body
+
+        const user = await UserModel.findById(userId)
+        let userBoolean;
+        user.copying.forEach(trader => {
+            if(trader == traderId){
+                userBoolean = true 
+            }
+        })
+    
+    
+        const trader = await Trader.findById(traderId)
+        let traderBoolean;
+        trader.copiers.forEach(user => {
+            if(user == userId){
+                traderBoolean = true
+            }
+        })
+
+        if(userBoolean && traderBoolean){
+            const newTrader = await Trader.findByIdAndUpdate(traderId, {$pull: {copiers:userId}}, {new:true})
+            const newUser = await UserModel.findByIdAndUpdate(userId, {$pull:{ copying: traderId}}, {new:true})
+
+            return res.status(200).json({message:"REMOVED", newTrader, newUser})
+         }
+
+
+        res.status(200).json({message:"NO TRADE OR USER FOUND"})
+    }
+
     async getCopiers (req,res) {
         const {id} = req.body 
         const user = await UserModel.findById(id)
