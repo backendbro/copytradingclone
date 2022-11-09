@@ -277,6 +277,7 @@ class Stock {
         const crypto = { 
             Aave: {
                 id:1,
+                displayName : "Aave",
                 name:"Aave",
                 tradeValue:"$84.57",
                 amount:{
@@ -286,6 +287,7 @@ class Stock {
             },
             Cardano: {
                 id:2,
+                displayName:"Cardano",
                 name:"Ada",
                 tradeValue:"$0.40",
                 amount:{
@@ -295,6 +297,7 @@ class Stock {
             },
             Algorand:{
                 id:3,
+                displayName:"Algorand",
                 name:"ALGO",
                 tradeValue: "$0.35",
                 amount:{
@@ -304,6 +307,7 @@ class Stock {
             },
             Bitcoin_Cash: {
                 id:4,
+                displayName:"Bitcoin Cash",
                 name:"Bcash",
                 tradeValue: "$114.91",
                 amount:{
@@ -313,6 +317,7 @@ class Stock {
             },
             Binance_Coin: {
                 id:5,
+                displayName:"Binance Coin",
                 name: "BNB",
                 tradeValue: "$310.69",
                 amount: {
@@ -322,6 +327,7 @@ class Stock {
             },
             Bitcoin: {
                 id:6,
+                displayName:"Bitcoin",
                 name:"BTC",
                 tradeValue: "$2,049.05",
                 amount: {
@@ -331,6 +337,7 @@ class Stock {
             },
             PanCake_Swap : {
                 id:7,
+                displayName:"Pancake Swap",
                 name:"Cake",
                 tradeValue: "$4.66",
                 amount: {
@@ -340,6 +347,7 @@ class Stock {
             },
             Compound: {
                 id:8,
+                displayName:"Compound",
                 name:"COMP",
                 tradeValue:"$50.06",
                 amount: {
@@ -349,6 +357,7 @@ class Stock {
             },
             Dash: {
                 id:9,
+                displayName:"Dash",
                 name:"DASH",
                 tradeValue:"$41.44",
                 amount: {
@@ -358,6 +367,7 @@ class Stock {
             },
             DogeCoin: {
                 id:10,
+                displayName:"Doge Coin",
                 name:"doge",
                 tradeValue:"$0.02",
                 amount: {
@@ -367,6 +377,7 @@ class Stock {
             },
             Polkadot:{
                 id:11,
+                displayName:"Polkadot",
                 name:"DOT",
                 tradeValue:"$6.67",
                 amount:{
@@ -376,6 +387,7 @@ class Stock {
             },
             EOS:{
                 id:12,
+                displayName:"EOS",
                 name:"EOS",
                 tradeValue:"$1.11",
                 amount:{
@@ -385,6 +397,7 @@ class Stock {
             },
             Ethereum: {
                 id:13,
+                displayName:"Ethereum",
                 name:"ETH",
                 tradeValue:"$1,583.72",
                 amount:{
@@ -394,6 +407,7 @@ class Stock {
             },
             Filecoin:{
                 id:14,
+                displayName:"File Coin",
                 name:"FIL",
                 tradeValue:"$5.37",
                 amount: {
@@ -403,6 +417,7 @@ class Stock {
             },
             FTX_Token:{
                 id:15,
+                displayName:"FTX Token",
                 name:"FTT",
                 tradeValue:"$25.56",
                 amount:{
@@ -412,6 +427,7 @@ class Stock {
             },
             Litecoin : {
                 id:16,
+                displayName:"Litecoin",
                 name:"LTC",
                 tradeValue:"$54.84",
                 amount: {
@@ -421,6 +437,7 @@ class Stock {
             },
             Polygon: {
                 id:17,
+                displayName:"Polygon",
                 name:"Matic",
                 tradeValue:"$0.91",
                 amount: {
@@ -430,6 +447,7 @@ class Stock {
             },
             Thorchain: {
                 id:18,
+                displayName:"Thorchain",
                 name:"Rune",
                 tradeValue:"$1.56",
                 amount: {
@@ -439,6 +457,7 @@ class Stock {
             },
             Shiba_Inu:{
                 id:19,
+                displayName:"Shiba Inu",
                 name:"SHIB",
                 tradeValue:"$0.00",
                 amount: {
@@ -448,6 +467,7 @@ class Stock {
             },
             Solana: {
                 id:20,
+                displayName:"Solana",
                 name:"SOL",
                 tradeValue:"$33.33",
                 amount: {
@@ -457,6 +477,7 @@ class Stock {
             },
             Theta: {
                 id:21,
+                displayName:"Theta",
                 name:"THETA",
                 tradeValue:"$1.15",
                 amount:{
@@ -466,6 +487,7 @@ class Stock {
             },
             Tron:{
                 id:22,
+                displayName:"Tron",
                 name:"TRX",
                 tradeValue:"$62.83",
                 amount:{
@@ -475,6 +497,7 @@ class Stock {
             },
             Uniswap: {
                 id:23,
+                displayName:"Uniswap",
                 name:"UNI",
                 tradeValue:"$6.84",
                 amount:{
@@ -484,6 +507,7 @@ class Stock {
             },
             Stellar: {
                 id: 23,
+                displayName:"Stellar",
                 name: "XLM",
                 tradeValue:"$0.11",
                 amount:{
@@ -493,6 +517,7 @@ class Stock {
             },
             Monero: {
                 id:25,
+                displayName:"Monero",
                 name:"XMR",
                 tradeValue:"$149.06",
                 amount:{
@@ -502,6 +527,7 @@ class Stock {
             },
             Tezos: {
                 id:26,
+                displayName:"Tezos",
                 name:"XTZ",
                 tradeValue:"$1.42",
                 amount:{
@@ -511,6 +537,7 @@ class Stock {
             },
             ZCASH: {
                 id:27,
+                displayName:"ZCASH",
                 name:"ZEC",
                 tradeValue:"$52.92",
                 amount:{
@@ -520,6 +547,7 @@ class Stock {
             },
             Bitcoin_SV:{
                 id:28,
+                displayName:"Bitcoin SV",
                 name:"BSV",
                 tradeValue:"$47.37",
                 amount:{
@@ -537,6 +565,7 @@ class Stock {
         const stocks = {
                 Apple:{
                     id:1,
+                    displayName:"Apple",
                     name:"AAPL",
                     tradeValue:"$138.11",
                     amount:{
@@ -546,6 +575,7 @@ class Stock {
                 },
                 Adobe:{
                     id:2,
+                    displayName:"Adobe",
                     name:"ADBE",
                     tradeValue:"$286.00",
                     amount:{
@@ -555,6 +585,7 @@ class Stock {
                 },
                 Analog_Devices:{
                     id:3,
+                    displayName:"Analog Devices",
                     name:"ADI",
                     tradeValue:"$144.29",
                     amount:{
@@ -564,6 +595,7 @@ class Stock {
                 },
                 American_International_Group:{
                     id:4,
+                    displayName:"American International Group",
                     name:"AIG",
                     tradeValue:"$57.69",
                     amount:{
@@ -573,6 +605,7 @@ class Stock {
                 },
                 AMC_Holding:{
                     id:5,
+                    displayName:"AMC Holding",
                     name:"AMC",
                     tradeValue:"$5.55",
                     amount:{
@@ -582,6 +615,7 @@ class Stock {
                 },
                 Amazon:{
                     id:6,
+                    displayName:"Amazon",
                     name:"AMZN",
                     tradeValue:"$91.14",
                     amount:{
@@ -591,6 +625,7 @@ class Stock {
                 },
                 ASML:{
                     id:7,
+                    displayName:"ASML",
                     name:"ASML",
                     tradeValue:"$468.99",
                     amount:{
@@ -600,6 +635,7 @@ class Stock {
                 },
                 American_Express:{
                     id:8,
+                    displayName:"American Express",
                     name:"AXP",
                     tradeValue:"$144.60",
                     amount:{
@@ -609,6 +645,7 @@ class Stock {
                 },
                 Boeing:{
                     id:9,
+                    displayName:"Boeing",
                     name:"BA",
                     tradeValue:"$159.93",
                     amount:{
@@ -618,6 +655,7 @@ class Stock {
                 },
                 Alibaba:{
                     id:10,
+                    displayName:"Alibaba",
                     name:"HKG",
                     tradeValue:"$69.83",
                     amount:{
@@ -627,6 +665,7 @@ class Stock {
                 },
                 Bank_Of_America:{
                     id:11,
+                    displayName:"Bank of America",
                     name:"BOA",
                     tradeValue:"$36.80",
                     amount:{
@@ -636,6 +675,7 @@ class Stock {
                 },
                 CitiGroup:{
                     id:12,
+                    displayName:"CitiGroup",
                     name:"C",
                     tradeValue:"$45.10",
                     amount:{
@@ -645,6 +685,7 @@ class Stock {
                 },
                 Caterpiller:{
                     id:13,
+                    displayName:"Caterpiller",
                     name:"CAT",
                     tradeValue:"$227.21",
                     amount:{
@@ -654,6 +695,7 @@ class Stock {
                 },
                 Chamber_Energy:{
                     id:14,
+                    displayName:"Chamber Energy",
                     name:"CEI",
                     tradeValue:"$0.12",
                     amount:{
@@ -663,6 +705,7 @@ class Stock {
                 },
                 Colgate_Palmolive:{
                     id:15,
+                    displayName:"Colgate Palmolive",
                     name:"CL",
                     tradeValue:"$73.30",
                     amount:{
@@ -672,6 +715,7 @@ class Stock {
                 },
                 Comcast:{
                     id:16,
+                    displayName:"Comcast",
                     name:"CMCSA",
                     tradeValue:"$31.02",
                     amount:{
@@ -681,6 +725,7 @@ class Stock {
                 },
                 COSTCO:{
                     id:17,
+                    displayName:"Costco",
                     name:"COST",
                     tradeValue:"$484.70",
                     amount:{
@@ -690,6 +735,7 @@ class Stock {
                 },
                 SalesForce:{
                     id:18,
+                    displayName:"SalesForce",
                     name:"CRM",
                     tradeValue:"$139.82",
                     amount:{
@@ -699,6 +745,7 @@ class Stock {
                 },
                 Chevron:{
                     id:19,
+                    displayName:"Chevron",
                     name:"CVX",
                     tradeValue:"$183.14",
                     amount:{
@@ -708,6 +755,7 @@ class Stock {
                 },
                 Disney:{
                     id:20,
+                    displayName:"Disney",
                     name:"DIS",
                     tradeValue:"$99.58",
                     amount:{
@@ -717,6 +765,7 @@ class Stock {
                 },
                 eBay:{
                     id:21,
+                    displayName:"eBay",
                     name:"EBAY",
                     tradeValue:"$39.84",
                     amount:{
@@ -726,6 +775,7 @@ class Stock {
                 },
                 Fastly:{
                     id:22,
+                    displayName:"Fastly",
                     name:"FSLY",
                     tradeValue:"$8.69",
                     amount:{
@@ -735,6 +785,7 @@ class Stock {
                 },
                 Google:{
                     id:23,
+                    displayName:"Google",
                     name:"GOOGL",
                     tradeValue:"$86.49",
                     amount:{
@@ -744,6 +795,7 @@ class Stock {
                 },
                 Goldman_Sachs:{
                     id:24,
+                    displayName:"Goldman Sachs",
                     name:"GS",
                     tradeValue:"$357.60",
                     amount:{
@@ -753,6 +805,7 @@ class Stock {
                 },
                 IBM:{
                     id:25,
+                    displayName:"IBM",
                     name:"IBM",
                     tradeValue:"$137.00",
                     amount:{
@@ -762,6 +815,7 @@ class Stock {
                 },
                 JP_Morgan:{
                     id:26,
+                    displayName:"JP Morgan",
                     name:"JP",
                     tradeValue:"$130.65",
                     amount:{
@@ -771,6 +825,7 @@ class Stock {
                 },
                 Coca_Cola:{
                     id:27,
+                    displayName:"Coca Cola",
                     name:"KO",
                     tradeValue:"$59.05",
                     amount:{
@@ -780,6 +835,7 @@ class Stock {
                 },
                 MasterCard:{
                     id:28,
+                    displayName:"MasterCard",
                     name:"MA",
                     tradeValue:"$317.51",
                     amount:{
@@ -789,6 +845,7 @@ class Stock {
                 },
                 McDonald:{
                     id:29,
+                    displayName:"McDonald",
                     name:"MCD",
                     tradeValue:"$274.31",
                     amount:{
@@ -798,6 +855,7 @@ class Stock {
                 },
                 MicroSoft:{
                     id:30,
+                    displayName:"MicroSoft",
                     name:"MSFT",
                     tradeValue:"$221.33",
                     amount:{
@@ -807,6 +865,7 @@ class Stock {
                 },
                 Motorola:{
                     id:31, 
+                    displayName:"Motorola",
                     name:"MSI",
                     tradeValue:"$254.87",
                     amount:{
@@ -816,6 +875,7 @@ class Stock {
                 },
                 Netflix:{
                     id:32,
+                    displayName:"Netflix",
                     name:"NFLX",
                     tradeValue:"$261.00",
                     amount:{
@@ -825,6 +885,7 @@ class Stock {
                 },
                 Nike:{
                     id:33,
+                    displayName:"Nike",
                     name:"NKE",
                     tradeValue:"$95.60",
                     amount:{
@@ -834,6 +895,7 @@ class Stock {
                 },
                 Pfizer:{
                     id:34,
+                    displayName:"Pfizer",
                     name:"PFE",
                     tradeValue:"$47.29",
                     amount:{
@@ -843,6 +905,7 @@ class Stock {
                 },
                 Paypal:{
                     id:35,
+                    displayName:"Paypal",
                     name:"PYPL",
                     tradeValue:"$74.94",
                     amount:{
@@ -852,6 +915,7 @@ class Stock {
                 },
                 Ferrari:{
                     id:36,
+                    displayName:"Ferrari",
                     name:"RACE",
                     tradeValue:"$199.20",
                     amount:{
@@ -861,6 +925,7 @@ class Stock {
                 },
                 Ralph_Lauren:{
                     id:37,
+                    displayName:"Ralph Lauren",
                     name:"RL",
                     tradeValue:"$95.06",
                     amount:{
@@ -870,6 +935,7 @@ class Stock {
                 },
                 Star_Bucks:{
                     id:38,
+                    displayName:"StarBucks",
                     name:"SBUX",
                     tradeValue:"$91.66",
                     amount:{
@@ -879,6 +945,7 @@ class Stock {
                 },
                 At_t:{
                     id:39,
+                    displayName:"AT&T",
                     name:"T",
                     tradeValue:"$18.29",
                     amount:{
@@ -888,6 +955,7 @@ class Stock {
                 },
                 Toyota_Motor:{
                     id:40,
+                    displayName:"Toyota",
                     name:"TYO",
                     tradeValue:"$137.55",
                     amount:{
@@ -897,6 +965,7 @@ class Stock {
                 },
                 Tesla:{
                     id:41,
+                    displayName:"Tesla",
                     name:"TSLA",
                     tradeValue:"$208.68",
                     amount:{
@@ -906,6 +975,7 @@ class Stock {
                 },
                 Twitter:{
                     id:42,
+                    displayName:"Twitter",
                     name:"TWTR",
                     tradeValue:"$53.86",
                     amount:{
@@ -915,6 +985,7 @@ class Stock {
                 },
                 Visa:{
                     id:43,
+                    displayName:"Visa",
                     name:"V",
                     tradeValue:"$196.98",
                     amount:{
@@ -924,6 +995,7 @@ class Stock {
                 },
                 Verizon:{
                     id:44,
+                    displayName:"Verizon",
                     name:"VZ",
                     tradeValue:"$37.30",
                     amount:{
@@ -933,6 +1005,7 @@ class Stock {
                 },
                 Wells_Fargo:{
                     id:45,
+                    displayName:"Wells Fargo",
                     name:"WFC",
                     tradeValue:"$46.65",
                     amount:{
@@ -942,6 +1015,7 @@ class Stock {
                 },
                 Walmart:{
                     id:46,
+                    displayName:"Walmart",
                     name:"WMT",
                     tradeValue:"$140.97",
                     amount:{
@@ -951,6 +1025,7 @@ class Stock {
                 },
                 Exxon_Mobil:{
                     id:47,
+                    displayName:"Exxon Mobil",
                     name:"XOM",
                     tradeValue:"$112.20",
                     amount:{

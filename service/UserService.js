@@ -91,9 +91,7 @@ class UserService {
         res.status(200).json({message:'EMAIL VERIFIED'})
     }
 
-    async login(req,res) {
-        // let ip = req.header('x-forwarded-for') || req.connection.remoteAddress; Push this inorder to test
-        // console.log(ip)
+    async login(req,res) { 
 
         const {email, password} = req.body 
         const user = await UserModel.findOne({email, accountStatus:"Active"}).select("+password")
