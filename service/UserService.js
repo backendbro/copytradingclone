@@ -28,29 +28,35 @@ class UserService {
         res.status(200).json({user, token})
     }
 
+
     async registerWithReferral(req,res){
        
         const { email } = req.body
 
-        const userExists = await UserModel.findOne({email})
-        
+        const userId = req.params.userId
+        const id = mongoose.Types.ObjectId(userId)
+        const checkIfReferredUserExist = await UserModel.findById(id)
+        if(!checkIfReferredUserExist){
+            return res.status(404).json({message:"The referred user does not exist"})
+        }
+
+       const userExists = await UserModel.findOne({email})
        if(userExists){
-            return res.status(404).json({message:'USER ALREADY EXIST'})
+        return res.status(404).json({message:'USER ALREADY EXIST'})
        }
 
         const user = await UserModel.create(req.body)
        
         //save referral
-        const userId = req.params.userId
-        const id = mongoose.Types.ObjectId(userId)
-        await UserModel.findByIdAndUpdate(id, { '$addToSet': { referredUser: user._id } }, {new:true} )
+       const referred =  await UserModel.findByIdAndUpdate(id, { '$addToSet': { referredUser: user._id } }, {new:true} )
         
         const token = user.createToken(process.env.registerExpTime)
         const firstName = user.firstName
         const pin = user.send2FACode()
         await user.save()
-         await sendEmail(email, 'Verify Email CopyTradingOptions', { firstName, pin });
-        res.status(200).json({user, token})
+
+        await sendEmail(email, 'Verify Email CopyTradingOptions', { firstName, pin });
+        res.status(200).json({user, token, referred})
     }
 
 

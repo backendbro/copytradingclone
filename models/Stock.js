@@ -5,7 +5,7 @@ module.exports = model('Stock',  new Schema ({
     time:Number,
     setTimer:Date,
     user:{type:Schema.Types.ObjectId, ref:"User"},
-    trader:String,
+    trader:{type:Schema.Types.ObjectId, ref:"Trader"},
     change:String,
     tradeType:String,
     coin:String,
