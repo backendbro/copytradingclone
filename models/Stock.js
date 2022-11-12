@@ -12,3 +12,4 @@ module.exports = model('Stock',  new Schema ({
     coin:String,
     status:String
 }))
+
