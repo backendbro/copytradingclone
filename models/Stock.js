@@ -10,6 +10,7 @@ module.exports = model('Stock',  new Schema ({
     tradeType:String,
     tradeValue:Number,
     coin:String,
-    status:String
+    tradeStartingTrade:String,
+    optionsUrl:String
 }))
 
