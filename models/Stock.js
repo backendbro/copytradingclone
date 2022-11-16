@@ -1,7 +1,8 @@
 const {model, Schema} = require('mongoose')
 
 module.exports = model('Stock',  new Schema ({
-    profit:Number,
+amount:Number,   
+profit:Number,
     time:Number,
     setTimer:Date,
     user:{type:Schema.Types.ObjectId, ref:"User"},
