@@ -8,7 +8,7 @@ module.exports = model('Stock',  new Schema ({
     trader:{type:Schema.Types.ObjectId, ref:"Trader"},
     change:String,
     tradeType:String,
-    tradeValue:Number,
+    tradeValue:String,
     coin:String,
     tradeStartingTrade:String,
     optionsUrl:String
