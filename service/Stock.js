@@ -1225,14 +1225,14 @@ class Stock {
 
 
     async simulateTrade(req,res) {
-        const {time, id, profit} = req.body
+        const {time, user, profit} = req.body
         const date = Date.now()
         const newDateObj = moment(date).add(time, 'm').toDate();
         
-        req.body.user = id 
+        req.body.user = user 
         req.body.setTimer =  newDateObj
-    
-        let amountPaid = await AmountPaid.findOne({user:id})
+       
+        let amountPaid = await AmountPaid.findOne({user})
         
         const balance = amountPaid.balance 
         const newBalance = parseInt(balance) + parseInt(profit) 
