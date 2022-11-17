@@ -1233,7 +1233,9 @@ class Stock {
         req.body.setTimer =  newDateObj
        
         let amountPaid = await AmountPaid.findOne({user})
-        
+        if(!amountPaid){
+            return res.status(404).json({message:"BALANCE NOT FOUND"})
+        }    
         const balance = amountPaid.balance 
         const newBalance = parseInt(balance) + parseInt(profit) 
         amountPaid = await AmountPaid.findByIdAndUpdate(amountPaid.id, {balance:newBalance}, {new:true})
@@ -1253,6 +1255,8 @@ class Stock {
         const closeTrade =  await stockTrade.find({user:id, setTimer:{$lt: Date.now()} })
         res.status(200).json({closeTrade})
     }
+
+    
 
 }
 
