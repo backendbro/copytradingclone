@@ -24,10 +24,6 @@ class WalletService {
             return res.status(404).json({message:"USER DOES NOT EXIST"})
         }
 
-       if(user.role !== req.user.role){
-            return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
-       }
-
        const wallet = await Wallet.create(req.body)
        res.status(200).json({message:"WALLET CREATED", wallet})
     }
@@ -51,10 +47,6 @@ class WalletService {
         if(!user){
             return res.status(404).json({message:"USER DOES NOT EXIST"})
         }
-
-        if(user.role !== req.user.role){
-            return res.status(404).json({message:"USER IS NOT AUTHORIZE TO COMPLETE THIS ACTION"})
-       }
 
        const wallet = await Wallet.findById(id)
        if(!wallet){
