@@ -2,7 +2,7 @@ const router = require('express').Router()
 const UserService = require('../service/UserService')
 const {protect, auth} = require('../middlewares/protect-route')
 
-router.post('/register/referral/:userId', UserService.registerWithReferral)
+//router.post('/register/referral/:userId', UserService.registerWithReferral)
 
 router.post('/register', UserService.register)
 router.put('/confirm-email/', UserService.confirmPin)

@@ -2,8 +2,9 @@ const express = require('express')
 const dotenv = require('dotenv')
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
-const app = express()
 
+const app = express()
+dotenv.config()
 
 const connectDB = require('./database/database')
 const notFound = require('./middlewares/notFound')
@@ -13,7 +14,6 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use(cookieParser());
 
-dotenv.config()
 
 connectDB()
 
@@ -58,3 +58,4 @@ const port = process.env.PORT || 8000
 app.listen(port, () => {
     console.log(`port started on: http://localhost:${port}`)
 })
+
