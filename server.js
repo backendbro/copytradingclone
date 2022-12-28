@@ -1,30 +1,14 @@
-// class StockMarket {
-//     constructor(){
-//         this.stocksocket = require("stocksocket")
-//     }
-
-//     getPriceChanged(data) {
-//         this.stocksocket.addTicker(data, (result) => {
-//             res.status(200).json(result)
-//         })
-//     }
-// }
-
-// const stock = new StockMarket()
-// stock.getPriceChanged('TSLA') 
-
-// return 
 const express = require('express')
 const dotenv = require('dotenv')
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
-const handlebars = require("express-handlebars")
+
 
 const app = express()
 dotenv.config()
 
-app.set('view engine', 'hbs');
-app.engine('hbs', handlebars({ layoutsDir: __dirname + '/views/layouts', extname: 'hbs' }));
+// app.set('view engine', 'hbs');
+// app.engine('hbs', handlebars({ layoutsDir: __dirname + '/views/layouts', extname: 'hbs' }));
 
 const connectDB = require('./database/database')
 const notFound = require('./middlewares/notFound')
