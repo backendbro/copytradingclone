@@ -141,11 +141,6 @@ class AdminUser  {
         }
 
         const deposit = await Deposit.findByIdAndUpdate(id, req.body, {new:true})
-        const amountObj = {
-            user: deposit.user,
-            amount: [deposit.amount],
-            balance: parseInt(deposit.amount)
-        }
 
         const findAmount = await AmountPaid.findOne({user:deposit.user})
         
@@ -156,8 +151,6 @@ class AdminUser  {
             })
 
             findAmount1 = await AmountPaid.findByIdAndUpdate(findAmount.id, {$push:{amount:deposit.amount}, balance}, {new:true})
-        }else{
-            findAmount1 = await AmountPaid.create(amountObj)
         }
 
         res.status(200).json({message:"DEPOSIT EDITED", deposit, findAmount1}) 

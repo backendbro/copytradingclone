@@ -19,7 +19,8 @@ class UserService {
        
        // create a new user and store the referred
         const user = await UserModel.create(req.body)
-
+        const obj = {user}
+        const findAmount1 = await AmountPaid.create(obj)
         
         // confirming is the referredUser exists
         if(ReferralUserID){
