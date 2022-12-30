@@ -15,7 +15,8 @@ class Deposits {
     }
 
     async getDeposits (req,res) {
-        let deposits = await Deposit.find()
+        const {id} = req.body
+        let deposits = await Deposit.find({user:id})
         res.status(200).json({message:"DEPOSITS MADE", deposits})
     }
 
