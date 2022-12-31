@@ -219,6 +219,20 @@ class UserService {
         res.status(200).json({singleUser, deposits, amountPaid})
     }
 
+    async getUser(req,res) {
+        const {id} = req.body
+        const mongooseId = mongoose.Types.ObjectId(id)
+        const user = await UserModel.findById(id)
+        if(!user){
+            return res.status(200).json({message:"USER DOES NOT EXIST"})
+        }
+    
+        const amountPaid = await AmountPaid.findOne({user: mongooseId})
+        const singleUser = await UserModel.findById(mongooseId)
+        const deposits = await Deposits.findOne({user:mongooseId})
+        res.status(200).json({singleUser, deposits, amountPaid})
+    }
+
 }
 
 
