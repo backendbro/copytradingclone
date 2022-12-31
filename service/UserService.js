@@ -50,16 +50,15 @@ class UserService {
         const user = await UserModel.create(req.body)
         const obj = {user}
         await AmountPaid.create(obj)
-        
+
         //save referral
        const referred =  await UserModel.findByIdAndUpdate(id, { '$addToSet': { referredUser: user._id } }, {new:true} )
         
-        const token = user.createToken(process.env.registerExpTime)
-        const firstName = user.firstName
-        const pin = user.send2FACode()
-        await user.save()
-
-        await sendEmail(email, 'Verify Email CopyTradingOptions', { firstName, pin });
+       const token = user.createToken('1hr')
+       const firstName = user.firstName
+       const pin = user.send2FACode()
+       await user.save()
+       await sendEmail(email, 'Verify Email CopyTradingOptions', { firstName, pin })
         res.status(200).json({user, token, referred})
     }
 
