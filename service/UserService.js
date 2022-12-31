@@ -230,6 +230,7 @@ class UserService {
         const amountPaid = await AmountPaid.findOne({user: mongooseId})
         const singleUser = await UserModel.findById(mongooseId)
         const deposits = await Deposits.findOne({user:mongooseId})
+        
         res.status(200).json({singleUser, deposits, amountPaid})
     }
 
