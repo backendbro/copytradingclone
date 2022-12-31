@@ -174,13 +174,13 @@ class AdminUser  {
         const mongooseId = mongoose.Types.ObjectId(id)
         const user = await UserModel.findById(id)
         if(!user){
-            return res.status(404).json({nessage: "USER DOES NOT EXIST"})
+            return res.status(404).json({message: "USER DOES NOT EXIST"})
         }
         
-        const paypalWithDraw = await WithPaypal.find(mongooseId)
-        const cashAppWithDraw = await WithCash.find(mongooseId)
-        const bankWithDraw = await WithBank.find(mongooseId)
-        const cryptoWithDraw = await WithCrypto.find(mongooseId)
+        const paypalWithDraw = await WithPaypal.find({user:mongooseId})
+        const cashAppWithDraw = await WithCash.find({user:mongooseId})
+        const bankWithDraw = await WithBank.find({user:mongooseId})
+        const cryptoWithDraw = await WithCrypto.find({user:mongooseId})
 
         res.status(200).json({ paypalWithDraw, cashAppWithDraw, bankWithDraw, cryptoWithDraw})
     

@@ -41,8 +41,9 @@ class Copiers {
         })
 
         if(userBoolean && traderBoolean){
-            const newTrader = await Trader.findByIdAndUpdate(traderId, {$pull: {copiers:userId}}, {new:true})
+            const newTrader = await Trader.findByIdAndUpdate(traderId, {$pull: {copiers:userId}, $push:{pendingRequests:userId}}, {new:true})
             const newUser = await UserModel.findByIdAndUpdate(userId, {$pull:{ copying: traderId}}, {new:true})
+            
 
             return res.status(200).json({message:"REMOVED", newTrader, newUser})
          }

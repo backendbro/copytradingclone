@@ -6,12 +6,12 @@ const uploadSingleFile = require('../config/cloudinary')
 
 class TraderService {
 
-    async getTrader (req,res) {
+    async getTraders (req,res) {
         const traders = await Trader.find()
         res.status(200).json({traders})
     }
 
-    async getTraders(req,res) {
+    async getTrader(req,res) {
         const {id} = req.body
         const trader = await Trader.findById(id)
         res.status(200).json({trader})
