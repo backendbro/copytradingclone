@@ -34,7 +34,7 @@ class AdminUser  {
     
         const amountPaid = await AmountPaid.findOne({user: mongooseId})
         const singleUser = await UserModel.findById(id)
-        const deposits = await Deposits.findOne({user:mongooseId})
+        const deposits = await Deposits.find({user:mongooseId})
         res.status(200).json({singleUser, deposits, amountPaid})
     }
 
