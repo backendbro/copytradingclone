@@ -12,7 +12,7 @@ router.post('/resend-pin', UserService.resendConfirmEmailPin)
 router.post('/reset-password/', UserService.resetPassword)
 router.put('/reset-current-password/', protect, auth('user', 'admin'), UserService.resetCurrentPassword)
 router.get('/get-user', protect, auth('user'), UserService.getUser)
-router.post('/get-user', protect, auth('admin'), UserService.getUser)
+router.post('/get-user', protect, auth('admin'), UserService.getUserAdmin)
 
 module.exports = router 
 

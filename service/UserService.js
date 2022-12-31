@@ -219,7 +219,7 @@ class UserService {
         res.status(200).json({singleUser, deposits, amountPaid})
     }
 
-    async getUser(req,res) {
+    async getUserAdmin(req,res) {
         const {id} = req.body
         const mongooseId = mongoose.Types.ObjectId(id)
         const user = await UserModel.findById(id)
