@@ -8,29 +8,18 @@ const AmountPaid = require('../models/AmountPaid')
 
 class UserService {
     async register (req,res) { 
-        const { email, ReferralUserID } = req.body
+        const { email } = req.body
         
         // check if the referred exists
         const userExists = await UserModel.findOne({email})        
        if(userExists){
             return res.status(404).json({message:'USER ALREADY EXIST'})
        }
-
        
        // create a new user and store the referred
         const user = await UserModel.create(req.body)
         const obj = {user}
-        const findAmount1 = await AmountPaid.create(obj)
-        
-        // confirming is the referredUser exists
-        if(ReferralUserID){
-        const id = mongoose.Types.ObjectId(ReferralUserID)
-        const checkIfReferredUserExist = await UserModel.findById(id)
-        if(!checkIfReferredUserExist){
-            return res.status(404).json({message:"The referred user does not exist"})
-        }
-        await UserModel.findByIdAndUpdate(id, { '$addToSet': { referredUser: user._id } }, {new:true} )
-        }
+        await AmountPaid.create(obj)
 
         const token = user.createToken('1hr')
         const firstName = user.firstName
@@ -59,7 +48,9 @@ class UserService {
        }
 
         const user = await UserModel.create(req.body)
-       
+        const obj = {user}
+        await AmountPaid.create(obj)
+        
         //save referral
        const referred =  await UserModel.findByIdAndUpdate(id, { '$addToSet': { referredUser: user._id } }, {new:true} )
         
