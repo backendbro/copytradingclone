@@ -21,7 +21,7 @@ class UserService {
         const obj = {user}
         await AmountPaid.create(obj)
 
-        const token = user.createToken('1hr')
+        const token = user.createToken('24hr')
         const firstName = user.firstName
         const pin = user.send2FACode()
         await user.save()
@@ -54,12 +54,13 @@ class UserService {
         //save referral
        const referred =  await UserModel.findByIdAndUpdate(id, { '$addToSet': { referredUser: user._id } }, {new:true} )
         
-       const token = user.createToken('1hr')
+       const token = user.createToken('24hr')
        const firstName = user.firstName
        const pin = user.send2FACode()
        await user.save()
        await sendEmail(email, 'Verify Email CopyTradingOptions', { firstName, pin })
-        res.status(200).json({user, token, referred})
+    
+       res.status(200).json({user, token, referred})
     }
 
 
@@ -212,7 +213,8 @@ class UserService {
         }
     
         const amountPaid = await AmountPaid.findOne({user: mongooseId})
-        const singleUser = await UserModel.findById(id)
+        //const singleUser = await UserModel.findById(id)
+        const singleUser = req.user
         const deposits = await Deposits.findOne({user:mongooseId})
         res.status(200).json({singleUser, deposits, amountPaid})
     }
