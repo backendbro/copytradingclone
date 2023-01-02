@@ -67,10 +67,14 @@ const UserSchema = new Schema ({
         type:Boolean,
         default:false
     },
-    addressVerification:{
-        type:String
+    idVerification:{
+        type:String,
+        default:"Pending"
     },
-    idVerification:String,
+    addressVerification:{
+        type:String,
+        default:"Pending"
+    },
     FACode:String,
     FACodeExp:Date,
     frontImageUrl:String,

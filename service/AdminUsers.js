@@ -61,12 +61,6 @@ class AdminUser  {
         }
 
         await UserModel.findOneAndDelete({_id: userId })
-        // await Deposit.deleteMany({user:userId})
-        // await WithBank.deleteMany({user:userId})
-        // await WithCrypto.deleteMany({user:userId})
-        // await WithCash.deleteMany({user:userId})
-        // await WithPaypal.deleteMany({user:userId})
-        // await AmountPaid.findOneAndRemove({user: userId})
 
         res.status(200).json({message:'USER DELETED'})  
     } 
@@ -108,8 +102,8 @@ class AdminUser  {
         }
 
         const user = await UserModel.findByIdAndUpdate(id, {
-            idVerification, 
-            addressVerification, 
+                idVerification, 
+                addressVerification, 
             accountStatus}, 
             {new:true})
 
