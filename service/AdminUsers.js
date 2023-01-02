@@ -87,7 +87,7 @@ class AdminUser  {
 
     async getProfile(req,res) {
         const {id} = req.body
-        const amountPaid = await AmountPaid.findOne({id})
+        const amountPaid = await AmountPaid.findOne({user:id})
         const user = await UserModel.findById(id)
 
         res.status(200).json({message:"USER PROFILE", amountPaid, user})
