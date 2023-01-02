@@ -162,7 +162,7 @@ class AdminUser  {
             return res.status(404).json({message:"DEPOSIT DELETED"})
         }
         
-        const deletedDeposit = await Deposit.deleteOne({id})
+        const deletedDeposit = await Deposit.findOneAndDelete({id})
         res.status(200).json({message:"DEPOSIT DELETED", deletedDeposit})
     }
 
