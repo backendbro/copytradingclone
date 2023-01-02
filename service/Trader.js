@@ -52,7 +52,7 @@ class TraderService {
             const traderPhotoUpload = await uploadSingleFile(traderPhotoPath)
             traderPhotoUploadUrl = traderPhotoUpload.url
        } catch (error) {
-        console.log(error)
+        return
        }
 
        req.body.photo = traderPhotoUploadUrl 
@@ -63,7 +63,7 @@ class TraderService {
 
    async deleteTrader(req,res) {
     const {id} = req.body
-    const trader = await Trader.deleteOne({id})
+    const trader = await Trader.findOneAndRemove({id})
     return res.status(200).json({message:"TRADER DELETED", trader})
    }
 

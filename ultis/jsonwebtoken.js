@@ -12,7 +12,7 @@ function decryptJwt(token){
     const userId = jwt.verify(token, "o2roj34923@QEDSGoo1234")
     return userId.payload
    } catch (error) {
-    console.log(error)
+    return
    }
 }
 

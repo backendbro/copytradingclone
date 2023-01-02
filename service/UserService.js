@@ -111,7 +111,6 @@ class UserService {
         }
         
 
-        // console.log(user)
         const isMatch = await comparePassword(password,user.password)   
         if(!isMatch){
             return res.status(400).json({message:"YOU HAVE ENTERED WRONG CREDENTIALS"})

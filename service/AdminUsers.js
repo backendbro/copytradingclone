@@ -20,7 +20,6 @@ class AdminUser  {
 
     async getUsers(req,res) {
         const allUsers = await UserModel.find({role:"user"})
-        const deposits = await Deposit.find({status:"Pending"})
         res.status(200).json({allUsers})
     }
 
@@ -55,19 +54,19 @@ class AdminUser  {
 
     async deleteUser (req,res) {
         const {id} = req.body
-        const userId = mongoose.Types.ObjectId(id)
+        const userId = mongoose.Types.ObjectId(id)  
         const user = await UserModel.findById(userId)
         if(!user){
             return res.status(200).json({message:"USER DOES NOT EXIST"})
         }
 
-        await UserModel.deleteOne({id})
-        await Deposit.deleteOne({user:userId})
-        await WithBank.deleteOne({user:userId})
-        await WithCrypto.deleteOne({user:userId})
-        await WithCash.deleteOne({user:userId})
-        await WithPaypal.deleteOne({user:userId})
-        await AmountPaid.deleteOne({user: userId})
+        await UserModel.findOneAndRemove({id})
+        await Deposit.findOneAndRemove({user:userId})
+        await WithBank.findOneAndRemove({user:userId})
+        await WithCrypto.findOneAndRemove({user:userId})
+        await WithCash.findOneAndRemove({user:userId})
+        await WithPaypal.findOneAndRemove({user:userId})
+        await AmountPaid.findOneAndRemove({user: userId})
 
         res.status(200).json({message:'USER DELETED'})  
     } 

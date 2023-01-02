@@ -58,7 +58,7 @@ class ActionService  {
         return res.status(404).json({message:"ACTION DOES NOT EXIST"})
        }
 
-       const action = await Action.deleteOne({id})
+       const action = await Action.findOneAndRemove({id})
        res.status(200).json({message:'ACTION DELTED', action})
     }
 

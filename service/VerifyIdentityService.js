@@ -23,7 +23,7 @@ class VerifyIdentityService {
             const user = await UserModel.findByIdAndUpdate(userId, { frontImageUrl, backImageUrl}, {new:true})
             res.status(200).json({message:"IMAGE UPLOADED", user})
        } catch (error) {
-        console.log(error)
+        return
        }
 
     }
@@ -43,7 +43,7 @@ class VerifyIdentityService {
                 const user = await UserModel.findByIdAndUpdate(userId, { addressBillPic:addressBillUrl}, {new:true})
                 res.status(200).json({message:"IMAGE UPLOADED", user})
            } catch (error) {
-            console.log(error)
+            return
            }
     }
 

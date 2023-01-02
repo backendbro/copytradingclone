@@ -53,7 +53,7 @@ class WalletService {
         return res.status(404).json({message:"WALLET DOES NOT EXIST"})
        }
 
-       const walletD = await Wallet.deleteOne({id})
+       const walletD = await Wallet.findOneAndRemove({id})
        res.status(200).json({message:"WALLET DELETED", walletD})
     }   
 

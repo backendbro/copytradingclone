@@ -56,7 +56,7 @@ class Deposits {
             const depositProof = await Deposit.findByIdAndUpdate(depositId,  { depositImage:uploadProofUrl }, {new:true} )
             res.status(200).json({message:"IMAGE UPLOADED", depositProof})
        } catch (error) {
-        console.log(error)
+        return
        }
 
     }
