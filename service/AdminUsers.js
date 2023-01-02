@@ -60,7 +60,7 @@ class AdminUser  {
             return res.status(200).json({message:"USER DOES NOT EXIST"})
         }
 
-        await UserModel.findOneAndDelete({id})
+        await UserModel.findOneAndDelete({_id: userId })
         // await Deposit.deleteMany({user:userId})
         // await WithBank.deleteMany({user:userId})
         // await WithCrypto.deleteMany({user:userId})
