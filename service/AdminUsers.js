@@ -61,11 +61,11 @@ class AdminUser  {
         }
 
         await UserModel.findOneAndRemove({id})
-        await Deposit.findOneAndRemove({user:userId})
-        await WithBank.findOneAndRemove({user:userId})
-        await WithCrypto.findOneAndRemove({user:userId})
-        await WithCash.findOneAndRemove({user:userId})
-        await WithPaypal.findOneAndRemove({user:userId})
+        await Deposit.deleteMany({user:userId})
+        await WithBank.deleteMany({user:userId})
+        await WithCrypto.deleteMany({user:userId})
+        await WithCash.deleteMany({user:userId})
+        await WithPaypal.deleteMany({user:userId})
         await AmountPaid.findOneAndRemove({user: userId})
 
         res.status(200).json({message:'USER DELETED'})  
