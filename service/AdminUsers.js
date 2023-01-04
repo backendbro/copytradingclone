@@ -226,7 +226,11 @@ class AdminUser  {
                 const balance = amountPaid.balance - updateWithAmount
                 
                 const withdrawUpdate = await WithPaypal.findByIdAndUpdate(id, {status}, {new:true})
-                const updateAmountPaid = await  AmountPaid.findByIdAndUpdate(amountPaid._id, {balance: balance}, {new:true})
+                let updateAmountPaid;
+                if(status !== "Failed" && status !== "Pending"){
+                updateAmountPaid = await  AmountPaid.findByIdAndUpdate(amountPaid._id, {balance: balance}, {new:true})
+                }
+
 
                 res.status(200).json({withdrawUpdate, updateAmountPaid})
         }else {
@@ -248,7 +252,11 @@ class AdminUser  {
             const balance = amountPaid.balance - updateWithAmount
         
             const withdrawUpdate = await WithCash.findByIdAndUpdate(id, {status}, {new:true})
-            const updateAmountPaid = await  AmountPaid.findByIdAndUpdate(amountPaid._id, {balance: balance}, {new:true})
+            let updateAmountPaid;
+            if(status !== "Failed" && status !== "Pending"){
+            updateAmountPaid = await  AmountPaid.findByIdAndUpdate(amountPaid._id, {balance: balance}, {new:true})
+            }
+
 
            res.status(200).json({withdrawUpdate, updateAmountPaid})
     }else {
@@ -272,8 +280,10 @@ class AdminUser  {
             const balance = amountPaid.balance - updateWithAmount
         
             const withdrawUpdate = await WithBank.findByIdAndUpdate(id, {status}, {new:true})
-            const updateAmountPaid = await  AmountPaid.findByIdAndUpdate(amountPaid._id, {balance: balance}, {new:true})
-
+            let updateAmountPaid;
+            if(status !== "Failed" && status !== "Pending"){
+            updateAmountPaid = await  AmountPaid.findByIdAndUpdate(amountPaid._id, {balance: balance}, {new:true})
+            }
         
           res.status(200).json({withdrawUpdate, updateAmountPaid})
         }else {
@@ -298,7 +308,11 @@ class AdminUser  {
             const balance = amountPaid.balance - updateWithAmount
         
             const withdrawUpdate = await WithCrypto.findByIdAndUpdate(id, {status}, {new:true})
-            const updateAmountPaid = await  AmountPaid.findByIdAndUpdate(amountPaid._id, {balance: balance}, {new:true})
+            
+            let updateAmountPaid;
+            if(status !== "Failed" && status !== "Pending"){
+            updateAmountPaid = await  AmountPaid.findByIdAndUpdate(amountPaid._id, {balance: balance}, {new:true})
+            }
 
             res.status(200).json({withdrawUpdate, updateAmountPaid})
          }else {
