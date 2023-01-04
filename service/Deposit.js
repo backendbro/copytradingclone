@@ -35,28 +35,28 @@ class Deposits {
 
     async uploadProof(req,res){
         const userId = req.user.id
-        const depositId = req.params.id
+        const depositId = req.body.id
        
         let user = await UserModel.findById(userId)
         if(!user){
             return res.status(404).json({message:"USER NOT FOUND"})
         }
-
+        
         if(!req.file){
             return res.status(404).json({message:"PLEASE UPLOAD AN IMAGE"})
         }
 
         const uploadProof = req.file
-
+        
         try {
             const uploadProofPath = uploadProof.path 
             const uploadProofUpload = await uploadSingleFile(uploadProofPath)
             const uploadProofUrl = uploadProofUpload.url
-           
+          
             const depositProof = await Deposit.findByIdAndUpdate(depositId,  { depositImage:uploadProofUrl }, {new:true} )
             res.status(200).json({message:"IMAGE UPLOADED", depositProof})
        } catch (error) {
-        return
+        return 
        }
 
     }

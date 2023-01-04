@@ -204,7 +204,7 @@ class AdminUser  {
 
 
     async updateWithdrawal(req,res){
-        const {id} = req.body
+        const {id, status} = req.body
 
        
 
@@ -225,7 +225,7 @@ class AdminUser  {
                 
                 const balance = amountPaid.balance - updateWithAmount
                 
-                const withdrawUpdate = await WithPaypal.findByIdAndUpdate(id, {status:"Approved"}, {new:true})
+                const withdrawUpdate = await WithPaypal.findByIdAndUpdate(id, {status}, {new:true})
                 const updateAmountPaid = await  AmountPaid.findByIdAndUpdate(amountPaid._id, {balance: balance}, {new:true})
 
                 res.status(200).json({withdrawUpdate, updateAmountPaid})
@@ -247,7 +247,7 @@ class AdminUser  {
         
             const balance = amountPaid.balance - updateWithAmount
         
-            const withdrawUpdate = await WithCash.findByIdAndUpdate(id, {status:"Approved"}, {new:true})
+            const withdrawUpdate = await WithCash.findByIdAndUpdate(id, {status}, {new:true})
             const updateAmountPaid = await  AmountPaid.findByIdAndUpdate(amountPaid._id, {balance: balance}, {new:true})
 
            res.status(200).json({withdrawUpdate, updateAmountPaid})
@@ -271,7 +271,7 @@ class AdminUser  {
 
             const balance = amountPaid.balance - updateWithAmount
         
-            const withdrawUpdate = await WithBank.findByIdAndUpdate(id, {status:"Approved"}, {new:true})
+            const withdrawUpdate = await WithBank.findByIdAndUpdate(id, {status}, {new:true})
             const updateAmountPaid = await  AmountPaid.findByIdAndUpdate(amountPaid._id, {balance: balance}, {new:true})
 
         
@@ -297,7 +297,7 @@ class AdminUser  {
 
             const balance = amountPaid.balance - updateWithAmount
         
-            const withdrawUpdate = await WithCrypto.findByIdAndUpdate(id, {status:"Approved"}, {new:true})
+            const withdrawUpdate = await WithCrypto.findByIdAndUpdate(id, {status}, {new:true})
             const updateAmountPaid = await  AmountPaid.findByIdAndUpdate(amountPaid._id, {balance: balance}, {new:true})
 
             res.status(200).json({withdrawUpdate, updateAmountPaid})
