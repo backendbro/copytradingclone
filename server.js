@@ -43,6 +43,7 @@ const AdminUsers = require('./routes/AdminUsers')
 const Action = require('./routes/Action')
 const Copier = require('./routes/Copiers')
 const Stock = require('./routes/Stock')
+const Contact = require('./routes/Contact')
 
 app.use('/api/user', auth)
 app.use('/api/verify-id', verifyId)
@@ -56,6 +57,7 @@ app.use('/api/admin-user', AdminUsers)
 app.use('/api/action', Action)
 app.use('/api/copiers', Copier)
 app.use('/api/stock', Stock)
+app.use('/api/contact-us', Contact)
 
 app.use(notFound)
 

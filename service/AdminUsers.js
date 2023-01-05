@@ -80,7 +80,7 @@ class AdminUser  {
 
         const firstName = user.firstName
         const email = user.email 
-        console.log(email)
+        
         await sendEmail(email, subject , { firstName,description });
         res.status(200).json({message:"MESSAGE SENT"})
     }

@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const UserModel = require("../models/UserModel")
 const Verified = require('../models/Verified')
 const sendEmail = require('../ultis/emailer.js')
+const sendEmailContact = require('../ultis/contact-us.js')
 const {comparePassword} = require('../ultis/jsonwebtoken')
 const Deposits = require('../models/Deposits')
 const AmountPaid = require('../models/AmountPaid')
@@ -219,7 +220,13 @@ class UserService {
     }
 
 
-}
+    async contactUs(req,res) {
+        const {name, userEmail, phoneNumber, subject, message} = req.body 
+        await sendEmailContact(subject, { name , phoneNumber, message, userEmail });
+        res.status(200).json({message:"EMAIL SENT"})
+    }
+
+}   
 
 
 module.exports = new UserService    
