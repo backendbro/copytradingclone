@@ -170,10 +170,10 @@ class AdminUser  {
             return res.status(404).json({message: "USER DOES NOT EXIST"})
         }
         
-        const paypalWithDraw = await WithPaypal.find({user:mongooseId})
-        const cashAppWithDraw = await WithCash.find({user:mongooseId})
-        const bankWithDraw = await WithBank.find({user:mongooseId})
-        const cryptoWithDraw = await WithCrypto.find({user:mongooseId})
+        const paypalWithDraw = await WithPaypal.find({user:mongooseId}).sort({'updatedAt': -1})
+        const cashAppWithDraw = await WithCash.find({user:mongooseId}).sort({'updatedAt': -1})
+        const bankWithDraw = await WithBank.find({user:mongooseId}).sort({'updatedAt': -1})
+        const cryptoWithDraw = await WithCrypto.find({user:mongooseId}).sort({'updatedAt': -1})
 
         res.status(200).json({ paypalWithDraw, cashAppWithDraw, bankWithDraw, cryptoWithDraw})
     
