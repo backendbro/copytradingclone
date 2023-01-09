@@ -9,7 +9,7 @@ router.get('/crypto', auth('user', 'admin') ,Stock.getCrypto)
 router.get('/stock', auth('user', 'admin'), Stock.getStocks)
 
 router.post('/simulate-trade', auth('admin') , Stock.simulateTrade)
-router.post('/open-trade', auth("user",'admin'), Stock.getOpenTradeV1)
+router.get('/open-trade', auth("user",'admin'), Stock.getOpenTradeV1)
 router.post('/close-trade', auth("user",'admin'), Stock.getCloseTradeV2)
 
 module.exports = router

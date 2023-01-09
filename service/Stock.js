@@ -1246,7 +1246,7 @@ class Stock {
 
     
     async getOpenTradeV1 (req,res) {
-        const {id} = req.body 
+        //const {id} = req.body 
         const openTrade = await stockTrade.find({ setTimer:{$gt: Date.now()} })
         res.status(200).json({openTrade})
     }
