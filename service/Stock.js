@@ -1247,13 +1247,13 @@ class Stock {
     
     async getOpenTradeV1 (req,res) {
         const {id} = req.body 
-        const openTrade = await stockTrade.find({ user:id, setTimer:{$gt: Date.now()} })
+        const openTrade = await stockTrade.find({ setTimer:{$gt: Date.now()} })
         res.status(200).json({openTrade})
     }
 
 
     async getCloseTradeV2(req,res) {
-        const {id} = req.body
+        //const {id} = req.body
         const closeTrade =  await stockTrade.find({user:id, setTimer:{$lt: Date.now()} })
         res.status(200).json({closeTrade})
     }
