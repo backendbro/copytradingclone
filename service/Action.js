@@ -15,10 +15,10 @@ class ActionService  {
     async deleteAction(req,res) {
         const {id} = req.body
 
-       const actionExist = await Action.findById(id)
-       if(!actionExist){
-        return res.status(404).json({message:"ACTION DOES NOT EXIST"})
-       }
+    //    const actionExist = await Action.findById(id)
+    //    if(!actionExist){
+    //     return res.status(404).json({message:"ACTION DOES NOT EXIST"})
+    //    }
 
        const action = await Action.findOneAndDelete({_id:id})
        res.status(200).json({message:'ACTION DELTED', action})
