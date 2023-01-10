@@ -14,7 +14,11 @@ const WalletSchema = new Schema ({
         required:true
     },
     tag:String,
-    Network:String
+    Network:String,
+    photo:{
+        type:String,
+        required:true
+    }
 }, {timestamps:true})
 
 module.exports = model('Wallet', WalletSchema)
