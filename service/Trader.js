@@ -1,8 +1,6 @@
-
-
-
 const Trader = require('../models/Trader')
 const uploadSingleFile = require('../config/cloudinary')
+const CheckSchema = require('../models/Check')
 
 class TraderService {
 
@@ -61,10 +59,11 @@ class TraderService {
     
     }
 
-   async deleteTrader(req,res) {
+    async deleteTrader(req,res) {
     const {id} = req.body
-    await Trader.findOneAndDelete({_id:id})
-    return res.status(200).json({message:"TRADER DELETED"})
+    //await Trader.findOneAndDelete({_id:id})
+    const trader = await CheckSchema.create(id)
+    return res.status(200).json({message:"TRADER CREATED", trader})
    }
 
 }
