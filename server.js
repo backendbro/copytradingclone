@@ -19,16 +19,10 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use(cookieParser());
 
-
 connectDB()
-
 
 app.get('/', (req,res) => {
     res.send('Hello world 6')
-})
-
-app.get('/stockers', (req,res) => {
-    res.render('main');   
 })
 
 const auth = require('./routes/auth')
