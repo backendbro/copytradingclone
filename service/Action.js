@@ -8,6 +8,10 @@ class ActionService  {
         res.status(200).json({message:'ACTIONS', actions})
     }
 
+    async createAction(req,res) {
+        const action = await Action.create(req.body)
+        res.status(200).json({message:"ACTION", action})
+    }
     async deleteAction(req,res) {
         const {id} = req.body
 
