@@ -9,7 +9,7 @@ class ActionService  {
     }
 
     async getSingleAction (req,res) {
-        const {id} = req.params
+        const {id} = req.body
         const action = await Action.findById(id)
         if(!action){
             return res.status(404).json({message:"ACTION NOT FOUND"})
@@ -18,23 +18,12 @@ class ActionService  {
     }
 
     async createAction(req,res) {
-        const userId = req.user.id
-        const user = await UserModel.findById(userId)
-        if(!user){
-            return res.status(404).json({message:"USER DOES NOT EXIST"})
-        }
-       
        const action = await Action.create(req.body)
        res.status(200).json({message:"ACTION CREATED", action})
     }
 
     async updateAction(req,res) {
-        const userId = req.user.id
-        const {id} = req.params
-        const user = await UserModel.findById(userId)
-        if(!user){
-            return res.status(404).json({message:"USER DOES NOT EXIST"})
-        }
+        const {id} = req.body
 
        const actionExist = await Action.findById(id)
        if(!actionExist){
@@ -46,12 +35,7 @@ class ActionService  {
     }
 
     async deleteAction(req,res) {
-        const userId = req.user.id
-        const {id} = req.params
-        const user = await UserModel.findById(userId)
-        if(!user){
-            return res.status(404).json({message:"USER DOES NOT EXIST"})
-        }
+        const {id} = req.body
 
        const actionExist = await Action.findById(id)
        if(!actionExist){
