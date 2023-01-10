@@ -55,7 +55,7 @@ app.use('/api/action', Action)
 app.use('/api/copiers', Copier)
 app.use('/api/stock', Stock)
 app.use('/api/contact-us', Contact)
-app.use('/api/delete-action', Delete_Action)
+app.use('/api/delete', Delete_Action)
 
 app.use(notFound)
 

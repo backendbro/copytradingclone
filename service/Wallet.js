@@ -1,5 +1,6 @@
 const Wallet = require('../models/Wallet')
 const uploadSingleFile = require('../config/cloudinary')
+
 class WalletService {
 
     async getWallet(req,res){
