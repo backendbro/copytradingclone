@@ -40,6 +40,7 @@ const Action = require('./routes/Action')
 const Copier = require('./routes/Copiers')
 const Stock = require('./routes/Stock')
 const Contact = require('./routes/Contact')
+const Delete_Action = require('./routes/Delete_Action')
 
 app.use('/api/user', auth)
 app.use('/api/verify-id', verifyId)
@@ -54,6 +55,7 @@ app.use('/api/action', Action)
 app.use('/api/copiers', Copier)
 app.use('/api/stock', Stock)
 app.use('/api/contact-us', Contact)
+app.use('/api/delete-action', Delete_Action)
 
 app.use(notFound)
 
