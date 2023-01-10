@@ -61,11 +61,7 @@ class TraderService {
 
     async deleteTrader(req,res) {
     const {id} = req.body
-    if(!id){
-        return res.status(404).json({message:"No ID sent"})
-    }
-    //await Trader.findOneAndDelete({_id:id})
-    const trader = await CheckSchema.create(id)
+    const trader = await Trader.find()
     res.status(200).json({message:"TRADER CREATED", trader})
    }
 
