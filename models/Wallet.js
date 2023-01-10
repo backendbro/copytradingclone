@@ -16,8 +16,7 @@ const WalletSchema = new Schema ({
     tag:String,
     Network:String,
     photo:{
-        type:String,
-        required:true
+        type:String
     }
 }, {timestamps:true})
 

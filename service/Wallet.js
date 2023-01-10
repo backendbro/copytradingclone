@@ -16,6 +16,7 @@ class WalletService {
 
         res.status(200).json({message: 'WALLET FOUND', wallet})
     }
+
     async addWallet(req,res) {
        const wallet = await Wallet.create(req.body)
        res.status(200).json({message:"WALLET CREATED", wallet})
