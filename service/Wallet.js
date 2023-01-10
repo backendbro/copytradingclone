@@ -1,5 +1,5 @@
 const Wallet = require('../models/Wallet')
-
+const uploadSingleFile = require('../config/cloudinary')
 class WalletService {
 
     async getWallet(req,res){
@@ -34,6 +34,7 @@ class WalletService {
     }
 
     async uploadWallet(req,res){
+       
         const {walletId} = req.body
         
         if(!req.file){
@@ -47,11 +48,14 @@ class WalletService {
             const uploadWalletUpload = await uploadSingleFile(uploadWalletPath)
             const uploadWalletUrl = uploadWalletUpload.url
           
+           
             const walletProof = await Wallet.findByIdAndUpdate(walletId,  { photo:uploadWalletUrl }, {new:true} )
             res.status(200).json({message:"IMAGE UPLOADED", walletProof})
        } catch (error) {
-        return 
+        return res.status(404).json({message:"IMAGE NOT UPLOADED"})
        }
+
+      
     }
 
     async deleteWallet(req,res){
