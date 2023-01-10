@@ -1225,16 +1225,13 @@ class Stock {
 
 
     async simulateTrade(req,res) {
-        console.log('Hello world')
         const {time, user, profit} = req.body
-
-        const futureDate = new Date();
-        const newDateObj = futureDate.setMinutes(futureDate.getMinutes() + time);
-        console.log(new Date(newDateObj))
-        return
-
+    
+        let xMinutesLater = new Date();
+        xMinutesLater.setMinutes(xMinutesLater.getMinutes() + time);
+        
         req.body.user = user 
-        req.body.setTimer =  newDateObj
+        req.body.setTimer =  xMinutesLater
        
         let amountPaid = await AmountPaid.findOne({user})
         if(!amountPaid){
@@ -1250,14 +1247,14 @@ class Stock {
 
     
     async getOpenTradeV1 (req,res) {
-        const {id} = req.body 
-        const openTrade = await stockTrade.find({setTimer:{$gt: Date.now()} })
+        //const {id} = req.body 
+        const openTrade = await stockTrade.find({ setTimer:{$gt: Date.now()} })
         res.status(200).json({openTrade})
     }
 
 
     async getCloseTradeV2(req,res) {
-        const {id} = req.body
+        //const {id} = req.body
         const closeTrade =  await stockTrade.find({user:id, setTimer:{$lt: Date.now()} })
         res.status(200).json({closeTrade})
     }
